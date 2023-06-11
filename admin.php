@@ -195,7 +195,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                             <p class="text-[19px]">Profile</p>
                         </div>
                         <div class="ml-auto">
-                            <a href="">
+                            <a href="admin_profile_edit.php">
                                 <div class="h-8 w-8 bg-gray-100 rounded-md flex justify-center items-center">
                                     <i class="fa-light fa-pen fa-beat"></i>
                                 </div>
@@ -205,8 +205,48 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <!-- profile logo-->
                     <div class="flex justify-center mt-10">
                         <div class="text-center">
-                            <img class="h-20 w-20 rounded-full" src="images/login-image.avif" alt="">
-                            <p class="text-[14px] text-gray-500">SHS two(2)</p>
+                            <!-- image -->
+                            <?php
+                            $select_query = mysqli_query($connection, "SELECT t.image
+                                    FROM teachers t
+                                    JOIN links l ON t.id = l.teacher_id
+                                    WHERE t.id = " . $_SESSION["userid"]);
+
+                            if ($select_query) {
+                                if (mysqli_num_rows($select_query) > 0) {
+                                    $row = mysqli_fetch_assoc($select_query);
+                                    $image = $row["image"];
+                                    echo "<img class='h-[60px] w-[60px] rounded-full' src='images/$image' alt='Teacher Image'>";
+                                } else {
+                                    echo "<p>Name not found</p>";
+                                }
+                            } else {
+                                echo "Query error: " . mysqli_error($connection);
+                            }
+                            ?>
+                            <!-- the name of the admin -->
+                            <p>
+                                <?php
+                                $select_query = mysqli_query($connection, "SELECT t.name
+                                        FROM teachers t
+                                        JOIN links l ON t.id = l.teacher_id
+                                        WHERE t.id = " . $_SESSION["userid"]);
+
+                                if ($select_query) {
+                                    if (mysqli_num_rows($select_query) > 0) {
+                                        $row = mysqli_fetch_assoc($select_query);
+                                        $name = $row["name"];
+                                        echo "<p>$name</p>";
+                                    } else {
+                                        echo "<p>Name not found</p>";
+                                    }
+                                } else {
+                                    echo "Query error: " . mysqli_error($connection);
+                                }
+                                ?>
+
+                            </p>
+                            <p class="text-[14px] text-gray-500">Admin</p>
                         </div>
                     </div>
                 </div>
@@ -276,14 +316,19 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
 </html>
 <?php
-if (isset($_POST['logout'])){
+//checking if user is logged in
+if (isset($_POST['logout'])) {
     //unset all the session
     session_unset();
 
     //destroying the session
     session_destroy();
 
-    //redirecting the admin to the dashboard
-    header("location:index.php");
+    //redirect
+    echo "
+        <script>
+            window.location.href='index.php';
+        </script>
+    ";
 }
 ?>

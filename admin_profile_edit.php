@@ -96,12 +96,12 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
         <div class=" ml-64 pt-6">
             <div class="grid grid-cols-3">
                 <div class="col-span-2">
-                    <p class="text-[25px]">Register New Teacher here</p>
+                    <p class="text-[25px]">Edit Your Profile Here</p>
                 </div>
 
                 <!-- add teacherg -->
                 <!-- add teacher -->
-                <a href="teachers_reg.php">
+                <a href="admin.php">
                     <div class="flex justify-center -ml-20">
                         <div class="h-10 w-10 bg-[#8a70d6] rounded-md flex justify-center items-center">
                             <i class="fa-regular fa-backward fa-fade text-white"></i>
@@ -113,50 +113,68 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
             <!-- registeration form-->
             <!-- registeration form-->
             <div class="h-[90vh] flex  justify-center items-center">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" onsubmit="return confirmLogout()" enctype="multipart/form-data">
+                <?php
+                    // Retrieve the existing data from the database
+                    $select_query = mysqli_query($connection, "SELECT * FROM teachers WHERE id = $_SESSION[userid]");
+                    $row = mysqli_fetch_assoc($select_query);
+
+                    // Check if a record is found
+                    if ($row) {
+                        $id = $row["id"];
+                        $name = $row["name"];
+                        $email = $row["email"];
+                        $phone = $row["phone"];
+                        $dob = $row["dob"];
+                        $residence = $row["residence"];
+                        $gender = $row["gender"];
+                    } else {
+                        echo "No records found.";
+                    }
+                ?>
                     <div class="flex gap-20 justify-center items-center ">
                         <div>
                             <!-- id -->
                             <div>
                                 <label class="text-[18px]" for="name">Id</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="text" placeholder="Enter id" name="id" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="hidde" placeholder="Enter id" name="id" required readonly value="<?php echo $id ?>"><br><br>
                             </div>
                             <!-- name -->
                             <div>
                                 <label class="text-[18px]" for="name">Name</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="text" placeholder="Enter name" name="name" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="text" placeholder="Enter name" name="name" required value="<?php echo $name ?>"><br><br>
                             </div>
                             <!-- email -->
                             <div>
                                 <label class="text-[18px]" for="email">Email</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="email" placeholder="Enter email" name="email" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="email" placeholder="Enter email" name="email" required value="<?php echo $email ?>"><br><br>
                             </div>
                             <!-- phone -->
                             <div>
                                 <label class="text-[18px]" for="phone">Phone</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="number" placeholder="Enter number" name="phone" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="number" placeholder="Enter number" name="phone" required value="<?php echo $phone ?>"><br><br>
                             </div>
                         </div>
                         <div>
                             <!-- date of birth -->
                             <div>
                                 <label class="text-[18px]" for="dob">Birth Date</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="date" placeholder="Enter date of birth" name="dob" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="date" placeholder="Enter date of birth" name="dob" required value="<?php echo $dob ?>"><br><br>
                             </div>
                             <!-- Residence -->
                             <div>
                                 <label class="text-[18px]" for="image">Residence</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="text" placeholder="Enter residence" name="residence" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="text" placeholder="Enter residence" name="residence" required value="<?php echo $id ?>"><br><br>
                             </div>
                             <!-- image -->
                             <div>
                                 <label class="text-[18px]" for="image">Image</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="file" name="image" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" type="file" name="image" required value="<?php echo $image ?>"><br><br>
                             </div>
                             <!--gender -->
                             <div>
                                 <label class="text-[18px]" for="gender">Gender</label><br>
-                                <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" name="gender" id="" required>
+                                <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-80 rounded-md outline-none pl-2" name="gender" id="" required value="<?php echo $gender ?>">
                                     <option value=""><-- select gender --></option>
                                     <option value="male">
                                         Male
@@ -170,7 +188,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     </div>
                     <!-- submit -->
                     <div class="text-center text-20 mt-10">
-                        <input class="bg-[#8a70d6] border border-[#8a70d6] h-10 w-80 rounded-md outline-none pl-2 text-white text-[20px]" type="submit" value="Register" name="register">
+                        <input class="bg-[#8a70d6] border border-[#8a70d6] h-10 w-80 rounded-md outline-none pl-2 text-white text-[20px]" type="submit" value="UPDATE" name="register">
                     </div>
                 </form>
             </div>
@@ -183,7 +201,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <!-- confirm before delete -->
     <script>
         function confirmLogout() {
-            return confirm("Are you sure you want to logout?");
+            return confirm("Are you sure you want to update your profile?");
         }
     </script>
 </body>
@@ -203,6 +221,7 @@ if (isset($_POST['logout'])) {
 }
 
 if (isset($_POST["register"])) {
+    
     // Retrieving data from the form and sanitizing input
     $id = mysqli_real_escape_string($connection, $_POST["id"]);
     $name = mysqli_real_escape_string($connection, $_POST["name"]);
@@ -216,23 +235,30 @@ if (isset($_POST["register"])) {
     $img_path = "images/" . $image;
 
     // Now let's move the uploaded image into the folder: image
+    // Now let's move the uploaded image into the folder: image
     if (move_uploaded_file($img_temp_name, $img_path)) {
-        // Inserting data into the database
-        $insert_query = mysqli_query($connection, "INSERT INTO teachers (`id`, `name`, `image`, `email`, `dob`, `phone`, `gender`, `residence`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$residence')");
+        // Update the data in the database
+        $update_query = mysqli_query($connection, "UPDATE teachers SET
+            name = '$name',
+            image = '$image',
+            email = '$email',
+            phone = '$phone',
+            dob = '$dob',
+            gender = '$gender',
+            residence = '$residence'
+            WHERE id = '$id'");
 
-        $link_insert = mysqli_query($connection, "INSERT INTO links (teacher_id) VALUES ('$id')");
-
-        if ($insert_query && $link_insert) {
+        if ($update_query) {
             echo "<script>
-                alert('Registration Successful');
-                window.location.href = 'teachers_reg.php';
+                alert('Update Successful');
+                window.location.href = 'admin.php';
             </script>";
         } else {
             echo "<script>
-                alert('Registration Failed');
+                alert('Update Failed');
             </script>";
         }
-    } else {
+    }  else {
         echo "<script>
             alert('Failed to upload image');
         </script>";

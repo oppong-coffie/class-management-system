@@ -56,7 +56,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <div class="mt-4 flex">
                     <div>
                         <label class="text-[18px]" for="password">Password</label><br>
-                        <input id="password" class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="password" type="password" placeholder="Enter password">
+                        <input id="password" class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="password" type="password" placeholder="Entegit r password">
                     </div>
                     <div>
                         <p onclick="showPassword()">

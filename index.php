@@ -21,7 +21,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 <body class="bg-gray-100 " style="font-family: poppins;">
     <!-- page contents -->
     <!-- page contents -->
-    <div class="lg:grid lg:grid-cols-2 ">
+    <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
             <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/login-image.avif" alt="">
@@ -67,7 +67,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- forget password link -->
                 <div class="text-[14px] text-right mt-4 ">
-                    <a href="">
+                    <a href="confirm_email.php">
                         <p class="text-red-600">Forgot password?</p>
                     </a>
                 </div>
@@ -121,25 +121,13 @@ if (isset($_POST["login"])) {
     // Check the role and redirect accordingly
     if (isset($row['userid'])) {
         if ($row['role'] === 'admin') {
-            echo "
-                <script>;
-                    alert('admin');
-                </script>;
-            ";
+           header("location:admin.php");
         } elseif ($row['role'] === 'teacher') {
-            echo "
-                <script>;
-                    alert('teacher');
-                </script>;
-            ";
+            header("location:teacher.php");
         } elseif ($row['role'] === 'student') {
             header("Location: student.php");
         } elseif ($row['role'] === 'parent') {
-            echo "
-                <script>;
-                    alert('parent');
-                </script>;
-            ";
+           header("location.parent.php");
         }
     } else {
         echo "

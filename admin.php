@@ -8,10 +8,19 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 <html lang="en">
 
 <head>
+    <style>
+        .active {
+            background-color: #e9e3ff;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 4px;
+            padding-top: 2px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDENTS DASHBOARD || DASHBOARD</title>
+    <title>ADMIN DASHBOARD || DASHBOARD</title>
     <!-- assets -->
     <!-- assets -->
     <link rel="stylesheet" href="Assets/fonts/fonts.css">
@@ -23,7 +32,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <script src="Assets/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-[#fbfbfb] h-[100vh]" style="font-family: poppins;">
+<body class=" h-[100vh]" style="font-family: poppins;">
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
@@ -31,26 +40,39 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
             <div class="p-8">
                 <!-- logo -->
                 <!-- logo -->
-                <div>
-                    <p class="text-[18px]">logo</p>
+                <div class=" ">
+                    <img class="h-20 w-20 rounded-full" src="images/success-student-consulting_7109-29.avif" alt="">
+                    <p></p>
                 </div>
                 <!-- nav links -->
                 <!-- nav links -->
                 <div class="mt-8">
-                    <li class="list-none active:bg-[#e9e3ff]">
-                        <i class="fa-regular fa-house text-gray-500"></i><a class="ml-2 text-gray-500" href="student.php">Dashboard</a>
+                    <li class="list-none active">
+                        <i class="fa-regular fa-house text-gray-500 "></i><a class="ml-2 text-gray-500" href="admin.php">Dashboard</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-briefcase text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Courses</a>
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Courses</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Results</a>
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="teachers_reg.php">Teachers</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-comment text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Chat</a>
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Students</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-gear text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Settings</a>
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Parents</a>
+                    </li>
+                    <li class="list-none mt-4">
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">User</a>
+                    </li>
+                    <li class="list-none mt-4">
+                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i><a class="ml-2 text-gray-500" href="">Results</a>
+                    </li>
+                    <li class="list-none mt-4">
+                        <i class="fa-regular fa-comment text-gray-500"></i><a class="ml-2 text-gray-500" href="">Chat</a>
+                    </li>
+                    <li class="list-none mt-4">
+                        <i class="fa-regular fa-gear text-gray-500"></i><a class="ml-2 text-gray-500" href="">Settings</a>
                     </li>
 
                 </div>
@@ -90,42 +112,42 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         <i class="fa-reqular fa-regular fa-bell "></i>
                     </div>
                 </div>
-            
+
 
                 <div class=" flex-cols-1 mt-6">
                     <div class="grid grid-cols-3 lg:gap-[260px]">
                         <div class="">
                             <div class="h-60 w-40 bg bg-[#e9e3ff] rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-[#8a70d6] rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
+                                    <i class="fa-regular fa-screen-users text-[48px] text-white"></i>
                                 </div>
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
+                                    Total Students
+                                </p>
                             </div>
-                           
+
                         </div>
                         <div class="">
                             <div class="h-60 w-40 bg bg-blue-100 rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-blue-400 rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
+                                    <i class="fa-regular fa-person-chalkboard text-[48px] text-white"></i>
                                 </div>
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
+                                    Total Staffs
+                                </p>
                             </div>
-                           
+
                         </div>
                         <div class="">
                             <div class="h-60 w-40 bg bg-yellow-100 rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-[#E8A462] rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
+                                    <i class="fa-regular fa-briefcase text-gray-500 text-[48px] text-white"></i>
                                 </div>
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
+                                    Total Courses
+                                </p>
                             </div>
-                           
+
                         </div>
                     </div>
 
@@ -134,28 +156,28 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <div class="mt-20">
                         <table class="mt-4">
                             <pt class="text-[18px]">My Courses</p>
-                            <thead>
-                                <tr class="text-left p-60">
-                                    <th class=" text-gray-500">ID</th>
-                                    <th class="pl-10 text-gray-500">Cousrses</th>
-                                    <th class="pl-[80px] text-gray-500">Teacher</th>
-                                    <th class="pl-24 text-gray-500">Day</th>
-                                    <th class="pl-24 text-gray-500">Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="">1</td>
-                                    <td class="pl-10 ">Social.Studies</td>
-                                    <td class="pl-[80px] ">Mr.Benson</td>
-                                    <td class="pl-24">Monday</td>
-                                    <td class="pl-24">1:30pm</td>
-                                </tr>
+                                <thead>
+                                    <tr class="text-left p-60">
+                                        <th class=" text-gray-500">ID</th>
+                                        <th class="pl-10 text-gray-500">Cousrses</th>
+                                        <th class="pl-[80px] text-gray-500">Teacher</th>
+                                        <th class="pl-24 text-gray-500">Day</th>
+                                        <th class="pl-24 text-gray-500">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="">1</td>
+                                        <td class="pl-10 ">Social.Studies</td>
+                                        <td class="pl-[80px] ">Mr.Benson</td>
+                                        <td class="pl-24">Monday</td>
+                                        <td class="pl-24">1:30pm</td>
+                                    </tr>
 
 
 
 
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>
@@ -184,7 +206,6 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <div class="flex justify-center mt-10">
                         <div class="text-center">
                             <img class="h-20 w-20 rounded-full" src="images/login-image.avif" alt="">
-                            <p>Mends Gyan</p>
                             <p class="text-[14px] text-gray-500">SHS two(2)</p>
                         </div>
                     </div>
@@ -255,15 +276,14 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
 </html>
 <?php
-//checking if user is logged in
-if (isset($_POST['logout'])) {
+if (isset($_POST['logout'])){
     //unset all the session
     session_unset();
 
     //destroying the session
     session_destroy();
 
-    //redirecting the user to the login page
-    header("Location:index.php");
+    //redirecting the admin to the dashboard
+    header("location:index.php");
 }
 ?>

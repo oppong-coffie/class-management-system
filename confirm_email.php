@@ -37,7 +37,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- email input field -->
                 <div class="mt-10">
-                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="userid" type="text" placeholder="Enter id number">
+                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="email" type="text" placeholder="Enter email">
                 </div>
 
                 <!-- submit button -->
@@ -57,32 +57,62 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 </html>
 <?php
 if (isset($_POST["submit"])) {
-    //retrieving data from the database
-    $userId = $_POST["userid"];
+    // Retrieving data from the form
+    $email = $_POST["email"];
 
-    // Execute the query to check login credentials
-    $query = "SELECT * FROM users WHERE userid='$userId'";
+    // Execute the query to check if email exists in the database
+    $query = "SELECT * FROM users WHERE email='$email'";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 
     if (is_array($row)) {
-        $_SESSION['userid'] = $row['userid'];  
-        echo"
+        // Generate a verification code
+        $verificationCode = generateVerificationCode();
+
+        // Store the verification code in the session
+        $_SESSION['verification_code'] = $verificationCode;
+
+        // Send the verification email
+        sendVerificationEmail($email, $verificationCode);
+
+        // Redirect to the verification page
+        echo "
            <script>
-                alert('user id verified successfully.Continue to reset password');
-                window.location.href='new_pasword.php';
+                alert('Verification email sent. Check your email to proceed.');
+                window.location.href='verification.php';
            </script>
         ";
-    }else{
-        echo"
+    } else {
+        echo "
            <script>
-                alert('incorrect user id');
+                alert('Email not found.');
                 window.location.href='index.php';
            </script>
         ";
     }
+}
 
+function generateVerificationCode() {
+    // Generate a random verification code (you can customize the code generation logic)
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $codeLength = 6;
+    $verificationCode = '';
 
-  
+    for ($i = 0; $i < $codeLength; $i++) {
+        $index = mt_rand(0, strlen($characters) - 1);
+        $verificationCode .= $characters[$index];
+    }
+
+    return $verificationCode;
+}
+
+function sendVerificationEmail($email, $verificationCode) {
+    // You should implement your own logic to send the verification email
+    // Here's an example using PHP's mail() function (make sure your server is properly configured for sending emails)
+    $subject = 'Password Reset Verification';
+    $message = "Please use the following verification code to reset your password: $verificationCode";
+    $headers = 'From: gyankwadwomends2001@gmail.com';
+
+    mail($email, $subject, $message, $headers);
 }
 ?>

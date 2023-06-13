@@ -3,6 +3,10 @@ session_start();
 
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+
+// Include the Twilio PHP SDK
+require_once 'path/to/twilio-php/autoload.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +41,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- email input field -->
                 <div class="mt-10">
-                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="email" type="text" placeholder="Enter email">
+                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="phone" type="text" placeholder="Enter phone number">
                 </div>
 
                 <!-- submit button -->
@@ -58,10 +62,10 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 <?php
 if (isset($_POST["submit"])) {
     // Retrieving data from the form
-    $email = $_POST["email"];
+    $phone = $_POST["phone"];
 
-    // Execute the query to check if email exists in the database
-    $query = "SELECT * FROM users WHERE email='$email'";
+    // Execute the query to check if phone exists in the database
+    $query = "SELECT * FROM users WHERE phone='$phone'";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 
@@ -72,20 +76,20 @@ if (isset($_POST["submit"])) {
         // Store the verification code in the session
         $_SESSION['verification_code'] = $verificationCode;
 
-        // Send the verification email
-        sendVerificationEmail($email, $verificationCode);
+        // Send the verification SMS
+        sendVerificationSMS($phone, $verificationCode);
 
         // Redirect to the verification page
         echo "
            <script>
-                alert('Verification email sent. Check your email to proceed.');
+                alert('Verification SMS sent. Check your phone to proceed.');
                 window.location.href='verification.php';
            </script>
         ";
     } else {
         echo "
            <script>
-                alert('Email not found.');
+                alert('Phone number not found.');
                 window.location.href='index.php';
            </script>
         ";
@@ -106,13 +110,29 @@ function generateVerificationCode() {
     return $verificationCode;
 }
 
-function sendVerificationEmail($email, $verificationCode) {
-    // You should implement your own logic to send the verification email
-    // Here's an example using PHP's mail() function (make sure your server is properly configured for sending emails)
-    $subject = 'Password Reset Verification';
-    $message = "Please use the following verification code to reset your password: $verificationCode";
-    $headers = 'From: gyankwadwomends2001@gmail.com';
+function sendVerificationSMS($phone, $verificationCode) {
+    // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
+    $accountSid = 'YOUR_TWILIO_ACCOUNT_SID';
+    $authToken = 'YOUR_TWILIO_AUTH_TOKEN';
+    $twilioPhoneNumber = 'YOUR_TWILIO_PHONE_NUMBER';
 
-    mail($email, $subject, $message, $headers);
+    $client = new Twilio\Rest\Client($accountSid, $authToken);
+
+    $message = $client->messages->create(
+        $phone,
+        [
+            'from' => $twilioPhoneNumber,
+            'body' => "Please use the following verification code to reset your password: $verificationCode"
+        ]
+    );
+
+    // Handle success/failure of sending the message
+    if ($message->sid) {
+        // Message sent successfully
+        // You can log or display a success message here
+    } else {
+        // Error occurred while sending the message
+        // You can log or display an error message here
+    }
 }
 ?>

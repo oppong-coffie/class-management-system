@@ -1,50 +1,81 @@
 <?php
 session_start();
 
-if (isset($_POST["verify"])) {
-    // Retrieve the verification code entered by the user
-    $enteredCode = $_POST["verification_code"];
+// Check if the verification code exists in the session
+if (isset($_SESSION['verification_code'])) {
+    $verificationCode = $_SESSION['verification_code'];
 
-    // Retrieve the verification code stored in the session
-    $storedCode = $_SESSION['verification_code'];
+    if (isset($_POST['submit'])) {
+        $enteredCode = $_POST['verification_code'];
 
-    if ($enteredCode === $storedCode) {
-        // Verification code matched, allow password reset
-        // Redirect to the password reset page or perform necessary actions
-
-        // Clear the verification code from the session
-        unset($_SESSION['verification_code']);
-
-        echo "
-           <script>
-                alert('Verification successful. You can now proceed to reset your password.');
-                window.location.href='new_password.php';
-           </script>
-        ";
-    } else {
-        // Verification code does not match
-        echo "
-           <script>
-                alert('Invalid verification code.');
-                window.location.href='verification.php';
-           </script>
-        ";
+        // Check if the entered code matches the stored verification code
+        if ($enteredCode === $verificationCode) {
+            // Verification successful
+            // You can redirect the user to a password reset page or any other desired action
+            echo "
+                <script>
+                    alert('Verification successful!');
+                    window.location.href = 'password_reset.php';
+                </script>
+            ";
+        } else {
+            // Verification failed
+            echo "
+                <script>
+                    alert('Incorrect verification code. Please try again.');
+                    window.location.href = 'verification.php';
+                </script>
+            ";
+        }
     }
+} else {
+    // Verification code not found in the session
+    echo "
+        <script>
+            alert('Verification code not found. Please try again.');
+            window.location.href = 'index.php';
+        </script>
+    ";
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification</title>
+    <!-- assets -->
+    <!-- assets -->
+    <link rel="stylesheet" href="Assets/fonts/fonts.css">
+    <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
 </head>
-<body>
-    <h1>Verification</h1>
-    <form method="post" action="">
-        <label for="verification_code">Enter the verification code:</label>
-        <input type="text" id="verification_code" name="verification_code" required>
-        <br>
-        <input type="submit" name="verify" value="Verify">
-    </form>
+
+<body class="bg-gray-100" style="font-family: poppins;">
+    <!-- page contents -->
+    <!-- page contents -->
+    <div class="flex justify-center items-center h-screen">
+        <div>
+            <form action="" method="post">
+                <div class="text-center mb-6">
+                    <p class="text-[24px] text-gray-500">Enter Verification Code</p>
+                </div>
+
+                <div class="mt-4">
+                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" type="text" name="verification_code" placeholder="Verification Code" required>
+                </div>
+
+                <div class="mt-6">
+                    <input class="h-9 w-80 bg-[#8a70d6] rounded-md text-white text-[18px]" type="submit" name="submit" value="Verify">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- scripts -->
+    <!-- scripts -->
+    <script src="Assets/tailwind.js"></script>
+    <script src="Assets/jquery-3.6.0.min.js"></script>
 </body>
+
 </html>

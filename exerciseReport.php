@@ -1,9 +1,11 @@
 <?php
 session_start();
 $teacherid = $_GET['teacherid'];
+$teacher_id = IntVal($teacherid);
 
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +15,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEACHERS DASHBOARD || results</title>
+    <title>TEACHERS DASHBOARD || upload Records</title>
     <!-- assets -->
     <!-- assets -->
     <link rel="stylesheet" href="Assets/fonts/fonts.css">
@@ -26,6 +28,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 </head>
 
 <body class="bg-[#fbfbfb] h-[100vh]" style="font-family: poppins;">
+<link rel="stylesheet" href="main.css">
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
@@ -46,7 +49,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         <i class="fa-regular fa-briefcase text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Courses</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="dailyReport_add.php">Results</a>
+                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Results</a>
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-comment text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Chat</a>
@@ -60,7 +63,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
             <!-- logout-->
             <!-- logout-->
-            <form action="" method="post" onsubmit="return confirmLogout()">
+            <form action="exerciseReport.php?teacherid=<?php echo $teacherid; ?>" method="post" onsubmit="return confirmLogout()">
                 <div class="h-10 bg-[#8a70d6] bottom-0 fixed w-60 text-black p-2 flex">
                     <div>
                         <input class="h-10 bg-[#8a70d6] bottom-0 fixed text-white p-2 w-40 flex text-[20px]" type="submit" value="LOGOUT" name="logout">
@@ -74,93 +77,73 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
         <!-- page content -->
         <!-- page content -->
         <div class=" ml-64 pt-6 grid grid-cols-3">
-            <div class="grid grid-cols-3 col-span-2 ">
+            <div class=" col-span-2 ">
+            
+            <div class="grid grid-cols-3">
                 <div>
-                    <p class="text-[25px]">Dashboard</p>
+                    <p class="text-[25px]">Manage Teachers</p>
                 </div>
                 <!-- search bar -->
                 <!-- search bar -->
                 <div class="-ml-10">
-                    <form action="" method="post">
-                        <input type="search" placeholder="Enter what to search" class="bg-[#e9e3ff] h-10 w-80 rounded-md pl-4 outline-none">
+                    <form class="grid grid-cols-2 gap-10" action="exerciseReport_add.php" method="POST">
+                        <input name="id" type="search" onkeyup="mySearch()" id="myInput" placeholder="Enter id..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
+                        <input name="score" type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Enter mark..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
+                        <button name="upload" type="submit"><div class="h-10 w-10 bg-[#8a70d6] rounded-md flex justify-center items-center">
+                            <i class="fa-solid fa-regular fa-plus text-white"></i>
+                        </div></button>
+                        
                     </form>
                 </div>
-                <!-- notification -->
-                <!-- notification -->
-                <div class="flex justify-center -ml-20">
-                    <div class="h-10 w-10 bg-[#e9e3ff] rounded-md flex justify-center items-center">
-                        <i class="fa-reqular fa-regular fa-bell "></i>
-                    </div>
-                </div>
-            
+                <!-- add teacherg -->
+                <!-- add teacher -->
+                
+            </div>
 
-                <div class=" flex-cols-1 mt-6">
-                    <div class="grid grid-cols-3 lg:gap-[260px]">
-                        <div class="">
-                            <div class="h-60 w-40 bg bg-[#e9e3ff] rounded-md flex-cols-1 justify-center pt-4">
-                                <div class="w-[120px] h-[120px] bg-[#8a70d6] rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
-                                </div>
-                                <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
-                            </div>
-                           
-                        </div>
-                        <div class="">
-                            <div class="h-60 w-40 bg bg-blue-100 rounded-md flex-cols-1 justify-center pt-4">
-                                <div class="w-[120px] h-[120px] bg-blue-400 rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
-                                </div>
-                                <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
-                            </div>
-                           
-                        </div>
-                        <div class="">
-                            <div class="h-60 w-40 bg bg-yellow-100 rounded-md flex-cols-1 justify-center pt-4">
-                                <div class="w-[120px] h-[120px] bg-[#E8A462] rounded-md m-auto flex justify-center items-center">
-                                    <i class="fa-duotone fa-screen-users text-[48px] text-white"></i>
-                                </div>
-                                <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                Students
-                            </p>
-                            </div>
-                           
-                        </div>
-                    </div>
 
-                    <!-- courses -->
-                    <!-- courses -->
-                    <div class="mt-20">
-                        <table class="mt-4">
-                            <pt class="text-[18px]">My Courses</p>
-                            <thead>
-                                <tr class="text-left p-60">
-                                    <th class=" text-gray-500">ID</th>
-                                    <th class="pl-10 text-gray-500">Cousrses</th>
-                                    <th class="pl-[80px] text-gray-500">Teacher</th>
-                                    <th class="pl-24 text-gray-500">Day</th>
-                                    <th class="pl-24 text-gray-500">Time</th>
-                                </tr>
-                            </thead>
+            <table id="myTable" class="table w-[800px]" id="container">
+                        <thead class="p-2 bg-[#8a70d6] pl-2">
+                            <tr class="text-center h-10 text-blue-100">
+                                
+                                <th class="pl-20">ID</th>
+                                <th class="pl-20">NAME</th>
+                                <th class="pl-20">INDEX</th>
+                                <th class="pl-20">SCORE</th>
+                                <th class="pl-20 pr-2">ACTION</th>
+                            </tr>
+                        </thead>
+                        <?php
+                        // Selecting teachers detail from the database
+                        $roportdetails = mysqli_query($connection, "SELECT * FROM records WHERE course='java' AND teacher_id=$teacher_id");
+                        while ($row = mysqli_fetch_array($roportdetails)) {
+                        ?>
                             <tbody>
-                                <tr>
-                                    <td class="">1</td>
-                                    <td class="pl-10 ">Social.Studies</td>
-                                    <td class="pl-[80px] ">Mr.Benson</td>
-                                    <td class="pl-24">Monday</td>
-                                    <td class="pl-24">1:30pm</td>
+                                <tr class="even:bg-[#e9e3ff] h-10">
+                                   
+                                    <td class="pl-10"><?php echo $row["id"] ?></td>
+                                    <td class="pl-10"><?php echo $row["userid"] ?></td>
+                                    <td class="pl-10"><?php echo $row["userid"] ?></td>
+                                    <td class="pl-10"><?php echo $row["mark"] ?></td>
+                                    <td class="pl-10 pr-2">
+                                        <?php
+                                        echo '
+                                            <div class="flex gap-2">
+                                                <a href="teacher_reg.php?id='.$row['id'].'">
+                                                <div class="bg-[#8a70d6] text-white w-8 text-center rounded-sm"><button><i class="fa fa-edit"></i></button></div>
+                                            </a>
+                                                <a href="teachers_reg.php?delete='.$row['id'].'">
+                                                    <div class="bg-red-600 text-white w-8 text-center rounded-sm"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
+                                                </a>
+                                            </div>
+                                            ';
+                                        ?>
+                                    </td>
                                 </tr>
-
-
-
-
                             </tbody>
-                        </table>
-                    </div>
-                </div>
+                        <?php
+                        }
+                        ?>
+                    </table>
             </div>
 
 
@@ -196,9 +179,9 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-                        <p class="text-[19px]">RESUILTS UPLOAD</p>
+                        <p class="text-[19px]">Class Progress</p>
                         <!-- class exercises -->
-                        <a href="exerciseReport.php?teacherid=<?php echo $teacherid; ?>">
+                        <a href="">
                             <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
                                 <p>
                                     <i class="fa-regular fa-pen-line text-white"></i>

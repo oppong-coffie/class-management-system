@@ -11,7 +11,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDEX || LOGIN</title>
+    <title>INDEX || login</title>
     <!-- assets -->
     <!-- assets -->
     <link rel="stylesheet" href="Assets/fonts/fonts.css">
@@ -24,7 +24,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
-            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/login-image.avif" alt="">
+            <img class="lg:w-[60vw] lg:h-[80vh] mix-blend-normal" src="images/ttu-ima-scaled.webp" alt="">
         </div>
 
         <div class="flex justify-center items-center">
@@ -123,7 +123,7 @@ if (isset($_POST["login"])) {
         if ($row['role'] === 'admin') {
            header("location:admin.php");
         } elseif ($row['role'] === 'teacher') {
-            header("location:teacher.php");
+            header("Location: teacher.php?teacherid=" . $row['userid']);
         } elseif ($row['role'] === 'student') {
             header("Location: student.php");
         } elseif ($row['role'] === 'parent') {

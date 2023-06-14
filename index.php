@@ -11,7 +11,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDEX || login</title>
+    <title>INDEX || LOGIN</title>
     <!-- assets -->
     <!-- assets -->
     <link rel="stylesheet" href="Assets/fonts/fonts.css">
@@ -24,7 +24,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
-            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/login-image.avif" alt="">
+    <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/africa.avif" alt="">
         </div>
 
         <div class="flex justify-center items-center">
@@ -109,7 +109,7 @@ if (isset($_POST["login"])) {
     $role = $_POST["role"];
 
     // Execute the query to check login credentials
-    $query = "SELECT * FROM users WHERE email='$userId' AND password='$password'AND role='$role' ";
+    $query = "SELECT * FROM registeration WHERE email='$userId' AND password='$password'AND role='$role' ";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 

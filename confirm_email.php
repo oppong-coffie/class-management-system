@@ -3,6 +3,10 @@ session_start();
 
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+
+// Include the Twilio PHP SDK
+require_once 'path/to/twilio-php/autoload.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +41,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- email input field -->
                 <div class="mt-10">
-                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="userid" type="text" placeholder="Enter id number">
+                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="phone" type="text" placeholder="Enter phone number">
                 </div>
 
                 <!-- submit button -->
@@ -57,32 +61,78 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 </html>
 <?php
 if (isset($_POST["submit"])) {
-    //retrieving data from the database
-    $userId = $_POST["userid"];
+    // Retrieving data from the form
+    $phone = $_POST["phone"];
 
-    // Execute the query to check login credentials
-    $query = "SELECT * FROM users WHERE userid='$userId'";
+    // Execute the query to check if phone exists in the database
+    $query = "SELECT * FROM users WHERE phone='$phone'";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 
     if (is_array($row)) {
-        $_SESSION['userid'] = $row['userid'];  
-        echo"
+        // Generate a verification code
+        $verificationCode = generateVerificationCode();
+
+        // Store the verification code in the session
+        $_SESSION['verification_code'] = $verificationCode;
+
+        // Send the verification SMS
+        sendVerificationSMS($phone, $verificationCode);
+
+        // Redirect to the verification page
+        echo "
            <script>
-                alert('user id verified successfully.Continue to reset password');
-                window.location.href='new_pasword.php';
+                alert('Verification SMS sent. Check your phone to proceed.');
+                window.location.href='verification.php';
            </script>
         ";
-    }else{
-        echo"
+    } else {
+        echo "
            <script>
-                alert('incorrect user id');
+                alert('Phone number not found.');
                 window.location.href='index.php';
            </script>
         ";
     }
+}
 
+function generateVerificationCode() {
+    // Generate a random verification code (you can customize the code generation logic)
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $codeLength = 6;
+    $verificationCode = '';
 
-  
+    for ($i = 0; $i < $codeLength; $i++) {
+        $index = mt_rand(0, strlen($characters) - 1);
+        $verificationCode .= $characters[$index];
+    }
+
+    return $verificationCode;
+}
+
+function sendVerificationSMS($phone, $verificationCode) {
+    // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
+    $accountSid = 'YOUR_TWILIO_ACCOUNT_SID';
+    $authToken = 'YOUR_TWILIO_AUTH_TOKEN';
+    $twilioPhoneNumber = 'YOUR_TWILIO_PHONE_NUMBER';
+
+    $client = new Twilio\Rest\Client($accountSid, $authToken);
+
+    $message = $client->messages->create(
+        $phone,
+        [
+            'from' => $twilioPhoneNumber,
+            'body' => "Please use the following verification code to reset your password: $verificationCode"
+        ]
+    );
+
+    // Handle success/failure of sending the message
+    if ($message->sid) {
+        // Message sent successfully
+        // You can log or display a success message here
+    } else {
+        // Error occurred while sending the message
+        // You can log or display an error message here
+    }
 }
 ?>

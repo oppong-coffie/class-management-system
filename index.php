@@ -18,13 +18,13 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
 </head>
 
-<body class="bg-gray-100 " style="font-family: poppins;">
+<body class="" style="font-family: poppins;">
     <!-- page contents -->
     <!-- page contents -->
     <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
-            <img class="lg:w-[60vw] lg:h-[80vh] mix-blend-normal" src="images/ttu-ima-scaled.webp" alt="">
+            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/login-image.avif" alt="">
         </div>
 
         <div class="flex justify-center items-center">
@@ -48,7 +48,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- email input field -->
                 <div class="mt-4">
-                    <label class="text-[18px]" for="userid">UserId</label><br>
+                    <label class="text-[18px]" for="userid">Email</label><br>
                     <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="userid" type="text" placeholder="Enter id number">
                 </div>
 
@@ -56,7 +56,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <div class="mt-4 flex">
                     <div>
                         <label class="text-[18px]" for="password">Password</label><br>
-                        <input id="password" class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="password" type="password" placeholder="Entegit r password">
+                        <input id="password" class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="password" type="password" placeholder="Enter password">
                     </div>
                     <div>
                         <p onclick="showPassword()">
@@ -109,17 +109,17 @@ if (isset($_POST["login"])) {
     $role = $_POST["role"];
 
     // Execute the query to check login credentials
-    $query = "SELECT * FROM users WHERE userid='$userId' AND password='$password'AND role='$role' ";
+    $query = "SELECT * FROM users WHERE email='$userId' AND password='$password'AND role='$role' ";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 
     if (is_array($row)) {
-        $_SESSION['userid'] = $row['userid'];
+        $_SESSION['userid'] = $row['email'];
         $_SESSION['password'] = $row['password'];
     }
 
     // Check the role and redirect accordingly
-    if (isset($row['userid'])) {
+    if (isset($row['email'])) {
         if ($row['role'] === 'admin') {
            header("location:admin.php");
         } elseif ($row['role'] === 'teacher') {

@@ -5,7 +5,7 @@ session_start();
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
 // Include the Twilio PHP SDK
-require_once 'path/to/twilio-php/autoload.php';
+
 
 ?>
 <!DOCTYPE html>

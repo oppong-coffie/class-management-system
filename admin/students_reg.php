@@ -31,25 +31,25 @@ if(isset($_GET["delete"])){
     <title> Teachers Registeration</title>
     <!-- assets -->
     <!-- assets -->
-    <link rel="stylesheet" href="Assets/fonts/fonts.css">
-    <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../Assets/fonts/fonts.css">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css">
 
     <!-- scripts -->
     <!-- scripts -->
-    <script src="Assets/tailwind.js"></script>
-    <script src="Assets/jquery-3.6.0.min.js"></script>
+    <script src="../Assets/tailwind.js"></script>
+    <script src="../Assets/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class=" h-[100vh]" style="font-family: poppins;">
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
-        <div class="w-60 h-[100vh] absolute ">
+        <div class="w-[200px] h-[100vh] absolute ">
             <div class="p-8">
                 <!-- logo -->
                 <!-- logo -->
                 <div class=" ">
-                    <img class="h-20 w-20 rounded-full" src="images/success-student-consulting_7109-29.avif" alt="">
+                    <img class="h-20 w-20 rounded-full" src="../images/success-student-consulting_7109-29.avif" alt="">
                     <p></p>
                 </div>
                 <!-- nav links -->
@@ -61,14 +61,14 @@ if(isset($_GET["delete"])){
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Courses</a>
                     </li>
-                    <li class="list-none mt-4 active">
+                    <li class="list-none mt-4 ">
                         <i class="fa-regular fa-person-chalkboard text-gray-500"></i><a class="ml-2 text-gray-500" href="">Teachers</a>
                     </li>
-                    <li class="list-none mt-4">
+                    <li class="list-none mt-4 active">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Students</a>
                     </li>
                     <li class="list-none mt-4">
-                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Parents</a>
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="parents_reg.php">Parents</a>
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">User</a>
@@ -89,7 +89,7 @@ if(isset($_GET["delete"])){
             <!-- logout-->
             <!-- logout-->
             <form action="" method="post" onsubmit="return confirmLogout()">
-                <div class="h-10 bg-[#8a70d6] bottom-0 fixed w-60 text-black p-2 flex">
+                <div class="h-10 bg-[#8a70d6] bottom-0 fixed w-[200px] text-black p-2 flex">
                     <div>
                         <input class="h-10 bg-[#8a70d6] bottom-0 fixed text-white p-2 w-40 flex text-[20px]" type="submit" value="LOGOUT" name="logout">
                     </div>
@@ -101,10 +101,10 @@ if(isset($_GET["delete"])){
         </div>
         <!-- page content -->
         <!-- page content -->
-        <div class=" ml-64 pt-6">
+        <div class=" ml-[210px] pt-6 pr-4">
             <div class="grid grid-cols-3">
                 <div>
-                    <p class="text-[25px]">Manage Teachers</p>
+                    <p class="text-[25px]">Manage Students</p>
                 </div>
                 <!-- search bar -->
                 <!-- search bar -->
@@ -116,7 +116,7 @@ if(isset($_GET["delete"])){
                 </div>
                 <!-- add teacherg -->
                 <!-- add teacher -->
-                <a href="teacher_add.php">
+                <a href="student_add.php">
                     <div class="flex justify-center -ml-20">
                         <div class="h-10 w-10 bg-[#8a70d6] rounded-md flex justify-center items-center">
                             <i class="fa-solid fa-regular fa-plus text-white"></i>
@@ -125,36 +125,43 @@ if(isset($_GET["delete"])){
                 </a>
             </div>
 
-            <div class="mt-20">
-                <div class=" bg-gray-100 w-[1200px] h-[580px] rounded-lg p-10">
-                    <table id="myTable" class="table w-[1100px]" id="container">
-                        <thead class="p-2 bg-[#8a70d6] pl-2">
+            <div class="mt-20 ">
+                <div class=" bg-gray-100 w-auto h-[544px] rounded-lg pt-10">
+                    <table id="myTable" class="table w-[1100px] ml-2" id="container">
+                        <thead class="p-2 bg-[#8a70d6] p w-[100px]">
                             <tr class="text-left h-10 text-blue-100">
-                                <th class="pl-2">ID</th>
-                                <th class="pl-20">IMAGES</th>
-                                <th class="pl-20">NAME</th>
-                                <th class="pl-20">DOB</th>
-                                <th class="pl-20">PHONE</th>
-                                <th class="pl-20">GENDER</th>
-                                <th class="pl-20">RESIDENCE</th>
-                                <th class="pl-20 pr-2">ACTION</th>
-                            </tr>
+                                <th class="ml-2">ID</th>
+                                <th>IMAGES</th>
+                                <th>NAME</th>
+                                <th>REG_ID</th>
+                                <th>EMAIL</th>
+                                <th>PASSWORD</th>
+                                <th>ROLE</th>
+                                <th>DOB</th>
+                                <th>PHONE</th>
+                                <th>GENDER</th>
+                                <th>ACTION</th>
+                            </tr>                           
                         </thead>
                         <?php
+                        $role = "student";
                         // Selecting teachers detail from the database
-                        $teacher_details = mysqli_query($connection, "SELECT * FROM teachers");
+                        $teacher_details = mysqli_query($connection, "SELECT * FROM registeration WHERE role = '$role'");
                         while ($row = mysqli_fetch_array($teacher_details)) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
-                                    <td class="pl-2"><?php echo $row["id"] ?></td>
-                                    <td class="pl-20"><?php echo "<img class='rounded-full h-10 w-10' src='images/" . $row["image"] . "'; ?>" ?></td>
-                                    <td class="pl-20"><?php echo $row["name"] ?></td>
-                                    <td class="pl-20"><?php echo $row["dob"] ?></td>
-                                    <td class="pl-20"><?php echo $row["phone"] ?></td>
-                                    <td class="pl-20"><?php echo $row["gender"] ?></td>
-                                    <td class="pl-20"><?php echo $row["residence"] ?></td>
-                                    <td class="pl-20 pr-2">
+                                    <td ><?php echo $row["id"] ?></td>
+                                    <td ><?php echo "<img class='rounded-full h-10 w-10' src='../images/".$row["images"] . "'; ?>" ?></td>
+                                    <td ><?php echo $row["name"] ?></td>
+                                    <td ><?php echo $row["reg_id"] ?></td>
+                                    <td ><?php echo $row["email"] ?></td>
+                                    <td ><?php echo $row["password"] ?></td>
+                                    <td ><?php echo $row["role"] ?></td>
+                                    <td ><?php echo $row["date_of_birth"] ?></td>
+                                    <td ><?php echo $row["phone"] ?></td>
+                                    <td ><?php echo $row["gender"] ?></td>
+                                    <td >
                                         <?php
                                         echo '
                                             <div class="flex gap-2">

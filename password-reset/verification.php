@@ -15,7 +15,7 @@ if (isset($_SESSION['verification_code'])) {
             echo "
                 <script>
                     alert('Verification successful!');
-                    window.location.href = 'password_reset.php';
+                    window.location.href = 'new_pasword.php';
                 </script>
             ";
         } else {
@@ -48,15 +48,23 @@ if (isset($_SESSION['verification_code'])) {
     <title>Verification</title>
     <!-- assets -->
     <!-- assets -->
-    <link rel="stylesheet" href="Assets/fonts/fonts.css">
-    <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../Assets/fonts/fonts.css">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css">
+
+     <!-- scripts -->
+    <!-- scripts -->
+    <script src="../Assets/tailwind.js"></script>
 </head>
 
-<body class="bg-gray-100" style="font-family: poppins;">
+<body class="" style="font-family: poppins;">
     <!-- page contents -->
     <!-- page contents -->
-    <div class="flex justify-center items-center h-screen">
+    <divclass= class="lg:grid lg:grid-cols-2">
+        <!-- login image -->
         <div>
+            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="../images/africa.avif" alt="">
+        </div>
+        <div  class="flex justify-center items-center">
             <form action="" method="post">
                 <div class="text-center mb-6">
                     <p class="text-[24px] text-gray-500">Enter Verification Code</p>
@@ -71,11 +79,8 @@ if (isset($_SESSION['verification_code'])) {
                 </div>
             </form>
         </div>
-    </div>
-    <!-- scripts -->
-    <!-- scripts -->
-    <script src="Assets/tailwind.js"></script>
-    <script src="Assets/jquery-3.6.0.min.js"></script>
+    </divclass=>
+   
 </body>
 
 </html>

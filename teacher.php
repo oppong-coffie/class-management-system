@@ -4,6 +4,13 @@ $teacherid = $_GET['teacherid'];
 
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+
+//get data fro teachers
+$teachersql = "SELECT * FROM allteachers WHERE teacherid = 1";
+$teacherquery = mysqli_query($connection, $teachersql);
+$teacherow = mysqli_fetch_array($teacherquery);
+echo $teacherow['name'];
+$course = $teacherow['course'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +33,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 </head>
 
 <body class="bg-[#fbfbfb] h-[100vh]" style="font-family: poppins;">
+
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
@@ -198,19 +206,20 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <div class=" ">
                         <p class="text-[19px]">RESUILTS UPLOAD</p>
                         <!-- class exercises -->
-                        <a href="exerciseReport.php?teacherid=<?php echo $teacherid; ?>">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-pen-line text-white"></i>
-                                </p>
-                                <p class="text-white">
-                                    Exercises
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
+                        <a href="exerciseReport.php?teacherid=<?php echo $teacherid; ?>&course=<?php echo $course; ?>">
+    <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
+        <p>
+            <i class="fa-regular fa-pen-line text-white"></i>
+        </p>
+        <p class="text-white">
+            Exercises
+        </p>
+        <p class="ml-auto">
+            <i class="fa-solid fa-greater-than text-white"></i>
+        </p>
+    </div>
+</a>
+
                         <!-- class quize -->
                         <a href="">
                             <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">

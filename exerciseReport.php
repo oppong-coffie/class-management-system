@@ -1,7 +1,10 @@
 <?php
 session_start();
 $teacherid = $_GET['teacherid'];
+$course = $_GET['course'];
 $teacher_id = IntVal($teacherid);
+echo $course;
+echo $teacher_id;
 
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
@@ -86,7 +89,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <!-- search bar -->
                 <!-- search bar -->
                 <div class="-ml-10">
-                    <form class="grid grid-cols-2 gap-10" action="exerciseReport_add.php" method="POST">
+                    <form class="grid grid-cols-2 gap-10" action="exerciseReport_add.php?teacherid=<?php echo $teacherid; ?>&course=<?php echo $course; ?>" method="POST">
                         <input name="id" type="search" onkeyup="mySearch()" id="myInput" placeholder="Enter id..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
                         <input name="score" type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Enter mark..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
                         <button name="upload" type="submit"><div class="h-10 w-10 bg-[#8a70d6] rounded-md flex justify-center items-center">

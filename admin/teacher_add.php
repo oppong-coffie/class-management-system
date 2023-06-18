@@ -117,7 +117,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         <div>
                             <!-- id -->
                             <div>
-                                <label class="text-[18px]" for="name">Reg.Id</label><br>
+                                <label class="text-[18px]" for="name">Teacher id</label><br>
                                 <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="text" placeholder="Enter id" name="id" required><br><br>
                             </div>
                             <!-- name -->
@@ -244,7 +244,7 @@ if (isset($_POST["register"])) {
     // Now let's move the uploaded image into the folder: image
     if (move_uploaded_file($img_temp_name, $img_path)) {
         // Inserting data into the database
-        $insert_query = mysqli_query($connection, "INSERT INTO registeration (`reg_id`, `name`, `images`, `email`, `date_of_birth`, `phone`, `gender`, `role`,`password`,`date`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$role',password('$password'),'$date')");
+        $insert_query = mysqli_query($connection, "INSERT INTO teachers (`teacher_id`, `name`, `images`, `email`, `birth_date`, `phone`, `gender`, `role`,`password`,`date`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$role',password('$password'),'$date')");
 
 
         if ($insert_query) {

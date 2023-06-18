@@ -128,8 +128,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 </p>
                                 <div class="flex justify-center items-center">
                                 <p class="text-[35px] text-gray-700"><?php
-                                    $role = "student";
-                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                    $query = "SELECT COUNT(student_id) AS count FROM students";
                                     $result = mysqli_query($connection, $query);
                                     if ($result) {
                                         $row = mysqli_fetch_assoc($result);
@@ -155,8 +154,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                                 <div class="flex justify-center items-center">
                                 <p class="text-[35px] text-gray-700"><?php
-                                    $role = "teacher";
-                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                    $query = "SELECT COUNT(teacher_id) AS count FROM teachers ";
                                     $result = mysqli_query($connection, $query);
                                     if ($result) {
                                         $row = mysqli_fetch_assoc($result);
@@ -182,8 +180,8 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                                 <div class="flex justify-center items-center">
                                 <p class="text-[35px] text-gray-700"><?php
-                                    $role = "student";
-                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                   
+                                    $query = "SELECT COUNT(student_id) AS count FROM students ";
                                     $result = mysqli_query($connection, $query);
                                     if ($result) {
                                         $row = mysqli_fetch_assoc($result);

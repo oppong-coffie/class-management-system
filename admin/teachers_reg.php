@@ -1,8 +1,13 @@
 <?php
 session_start();
 
-//database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+//including the db file
+include("../database/db_connection.php");
+include("../database/LoginAuth.php");
+
+//creating object from the db
+$db = new DB('localhost', 'root', '', 'class_management_db');
+$db->connect();
 
 //deleting a row
 if(isset($_GET["delete"])){
@@ -128,12 +133,11 @@ if(isset($_GET["delete"])){
             <div class="mt-20 ">
                 <div class=" bg-gray-100 w-auto h-[544px] rounded-lg pt-10">
                     <table id="myTable" class="table w-[1100px] ml-2" id="container">
-                        <thead class="p-2 bg-[#8a70d6] p w-[100px]">
+                        <thead class="p-2 bg-[#8a70d6]  w-[100px]">
                             <tr class="text-left h-10 text-blue-100">
-                                <th class="ml-2">ID</th>
+                                <th class="ml-2">TEACHER_ID</th>
                                 <th>IMAGES</th>
                                 <th>NAME</th>
-                                <th>REG_ID</th>
                                 <th>EMAIL</th>
                                 <th>PASSWORD</th>
                                 <th>ROLE</th>
@@ -144,31 +148,31 @@ if(isset($_GET["delete"])){
                             </tr>                           
                         </thead>
                         <?php
-                        $role = "teacher";
+                       
                         // Selecting teachers detail from the database
-                        $teacher_details = mysqli_query($connection, "SELECT * FROM registeration WHERE role = '$role'");
-                        while ($row = mysqli_fetch_array($teacher_details)) {
+                        $teacher_details =  "SELECT * FROM teachers";
+                        $query = $db->query($teacher_details);
+                        while ($row = $db->fetchArray($teacher_details)) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
-                                    <td ><?php echo $row["id"] ?></td>
+                                <td ><?php echo $row["teacher_id"] ?></td>
                                     <td ><?php echo "<img class='rounded-full h-10 w-10' src='../images/".$row["images"] . "'; ?>" ?></td>
                                     <td ><?php echo $row["name"] ?></td>
-                                    <td ><?php echo $row["reg_id"] ?></td>
                                     <td ><?php echo $row["email"] ?></td>
                                     <td ><?php echo $row["password"] ?></td>
                                     <td ><?php echo $row["role"] ?></td>
-                                    <td ><?php echo $row["date_of_birth"] ?></td>
+                                    <td ><?php echo $row["birth_date"] ?></td>
                                     <td ><?php echo $row["phone"] ?></td>
                                     <td ><?php echo $row["gender"] ?></td>
                                     <td >
                                         <?php
                                         echo '
                                             <div class="flex gap-2">
-                                                <a href="teacher_reg.php?id='.$row['id'].'">
+                                                <a href="teacher_reg.php?id='.$row['teacher_id'].'">
                                                 <div class="bg-[#8a70d6] text-white w-8 text-center rounded-sm"><button><i class="fa fa-edit"></i></button></div>
                                             </a>
-                                                <a href="teachers_reg.php?delete='.$row['id'].'">
+                                                <a href="teachers_reg.php?delete='.$row['teacher_id'].'">
                                                     <div class="bg-red-600 text-white w-8 text-center rounded-sm"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
                                                 </a>
                                             </div>

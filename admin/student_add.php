@@ -117,7 +117,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         <div>
                             <!-- id -->
                             <div>
-                                <label class="text-[18px]" for="name">Reg.Id</label><br>
+                                <label class="text-[18px]" for="name">Student id</label><br>
                                 <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="text" placeholder="Enter id" name="id" required><br><br>
                             </div>
                             <!-- name -->
@@ -130,11 +130,11 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 <label class="text-[18px]" for="email">Email</label><br>
                                 <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="email" placeholder="Enter email" name="email" required><br><br>
                             </div>
-                           
+
                         </div>
 
                         <div>
-                           <!-- paasword -->
+                            <!-- paasword -->
                             <div>
                                 <label class="text-[18px]" for="name">Password</label><br>
                                 <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="text" placeholder="Enter password" name="password" required><br><br>
@@ -145,7 +145,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" name="role" id="" required>
                                     <option value=""><-- select role --></option>
                                     <option value="admin">
-                                       admin
+                                        admin
                                     </option>
                                     <option value="teacher">
                                         teacher
@@ -171,7 +171,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 <label class="text-[18px]" for="dob">Birth Date</label><br>
                                 <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="date" placeholder="Enter date of birth" name="dob" required><br><br>
                             </div>
-                            
+
                             <!-- image -->
                             <div>
                                 <label class="text-[18px]" for="image">Image</label><br>
@@ -244,7 +244,7 @@ if (isset($_POST["register"])) {
     // Now let's move the uploaded image into the folder: image
     if (move_uploaded_file($img_temp_name, $img_path)) {
         // Inserting data into the database
-        $insert_query = mysqli_query($connection, "INSERT INTO registeration (`reg_id`, `name`, `images`, `email`, `date_of_birth`, `phone`, `gender`, `role`,`password`,`date`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$role',password('$password'),'$date')");
+        $insert_query = mysqli_query($connection, "INSERT INTO students (`student_id`, `name`, `images`, `email`, `birth_date`, `phone`, `gender`, `role`,`password`,`date`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$role',password('$password'),'$date')");
 
 
         if ($insert_query) {

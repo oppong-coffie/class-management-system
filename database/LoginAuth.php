@@ -12,15 +12,15 @@ class LoginAuth
 
     public function loginLogic($email, $password, $role){
         //retrieving data from the  input field
-        $email = $this->db->escapeString("email");
-        $password = $this->db->escapeString("password");
-        $role = $this->db->escapeString("role");
+        $email = $this->db->escapeString($email);
+        $password = $this->db->escapeString($password);
+        $role = $this->db->escapeString($role);
 
         //checking if the admin details actully exist in the database
         $admin_select_query = "SELECT * FROM admin WHERE email = '$email' AND password = '$password' AND role='$role'";
         $admin_query = $this->db->query($admin_select_query);
 
-        //checking if the parents details actully exist in the database
+       //checking if the parents details actully exist in the database
         $parent_select_query = "SELECT * FROM parents WHERE email = '$email' AND password = '$password'";
         $parent_query = $this->db->query($parent_select_query);
 
@@ -30,7 +30,7 @@ class LoginAuth
 
         //checking if the students details actully exist in the database
         $student_select_query = "SELECT * FROM students WHERE email = '$email' AND password = '$password'";
-        $student_query = $this->db->query($student_select_query);
+        $student_query = $this->db->query($student_select_query); 
 
         if($admin_query->num_rows === 1){
             $admin = $this->db->fetchArray($admin_query);

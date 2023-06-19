@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 //including the db file
@@ -9,7 +8,6 @@ include("./database/LoginAuth.php");
 $db = new DB('localhost', 'root', '', 'class_management_db');
 $db->connect();
 
-
 if (isset($_POST["login"])) {
     //creating an object of the loginauth
     $loginauth = new LoginAuth($db);
@@ -19,30 +17,37 @@ if (isset($_POST["login"])) {
     $password = $_POST["password"];
     $role = $_POST["role"];
 
-    $admin = $loginauth->loginLogic($email, $password, $role);
-    $teacher = $loginauth->loginLogic($email, $password, $role);
-    $parent = $loginauth->loginLogic($email, $password, $role);
-    $student = $loginauth->loginLogic($email, $password, $role);
-   
+    $user = $loginauth->loginLogic($email, $password, $role);
 
-    if($admin){
-        $_SESSION["admin"] = $admin;
-        echo "student";
-    }elseif($teacher){
-        $_SESSION["teacher"] = $teacher;
-        echo "teacher";
-    }elseif($parent){
-        $_SESSION["parent"] = $parent;
-        echo "parrent";
-    }elseif($student){
-        $_SESSION["student"] = $student;
-        echo "student";
-    }else{
-        echo "invalid email or password";
+    if ($user) {
+        // Set the appropriate session variable based on user role
+        $_SESSION["user"] = $user;
+
+        // Redirect user to their respective dashboard
+        switch ($role) {
+            case "admin":
+               echo "admin";
+                break;
+            case "teacher":
+                echo "teacher";
+                break;
+            case "parent":
+                echo "parent";
+                break;
+            case "student":
+                echo "student";
+                break;
+            default:
+                echo "Invalid role";
+                break;
+        }
+        exit(); // Terminate script after redirect
+    } else {
+        echo "Invalid email or password";
     }
-    
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

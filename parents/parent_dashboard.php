@@ -23,13 +23,13 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <title>ADMIN DASHBOARD || DASHBOARD</title>
     <!-- assets -->
     <!-- assets -->
-    <link rel="stylesheet" href="Assets/fonts/fonts.css">
-    <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../Assets/fonts/fonts.css">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css">
 
     <!-- scripts -->
     <!-- scripts -->
-    <script src="Assets/tailwind.js"></script>
-    <script src="Assets/jquery-3.6.0.min.js"></script>
+    <script src="../Assets/tailwind.js"></script>
+    <script src="../Assets/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class=" h-[100vh]" style="font-family: poppins;">
@@ -41,13 +41,13 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <!-- logo -->
                 <!-- logo -->
                 <div class=" ">
-                    <img class="h-20 w-20 rounded-full" src="images/success-student-consulting_7109-29.avif" alt="">
+                    <img class="h-20 w-20 rounded-full" src="../images/success-student-consulting_7109-29.avif" alt="">
                     <p></p>
                 </div>
                 <!-- nav links -->
                 <!-- nav links -->
                 <div class="mt-8">
-                    <li class="list-none active">
+                    <li class="list-none">
                         <i class="fa-regular fa-house text-gray-500 "></i><a class="ml-2 text-gray-500" href="admin.php">Dashboard</a>
                     </li>
                     <li class="list-none mt-4">
@@ -59,8 +59,8 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Students</a>
                     </li>
-                    <li class="list-none mt-4">
-                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Parents</a>
+                    <li class="list-none mt-4  active">
+                        <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="parents_dashboard.php">Parents</a>
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">User</a>
@@ -107,7 +107,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 </div>
                 <!-- notification -->
                 <!-- notification -->
-                <div class="flex justify-center -ml-20">
+                <div class="flex justify-center ml-20">
                     <div class="h-10 w-10 bg-[#e9e3ff] rounded-md flex justify-center items-center">
                         <i class="fa-reqular fa-regular fa-bell "></i>
                     </div>
@@ -117,6 +117,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <div class=" flex-cols-1 mt-6">
                     <div class="grid grid-cols-3 lg:gap-[260px]">
                         <div class="">
+                            <!-- total  students -->
                             <div class="h-60 w-40 bg bg-[#e9e3ff] rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-[#8a70d6] rounded-md m-auto flex justify-center items-center">
                                     <i class="fa-regular fa-screen-users text-[48px] text-white"></i>
@@ -124,10 +125,25 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
                                     Total Students
                                 </p>
+                                <div class="flex justify-center items-center">
+                                <p class="text-[35px] text-gray-700"><?php
+                                    $role = "student";
+                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                    $result = mysqli_query($connection, $query);
+                                    if ($result) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        if ($row) {
+                                            $count = $row["count"];
+                                            echo $count;
+                                        }
+                                    }
+                                ?></p>
+                                </div>
                             </div>
 
                         </div>
                         <div class="">
+                            <!-- total  staff -->
                             <div class="h-60 w-40 bg bg-blue-100 rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-blue-400 rounded-md m-auto flex justify-center items-center">
                                     <i class="fa-regular fa-person-chalkboard text-[48px] text-white"></i>
@@ -135,50 +151,51 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
                                     Total Staffs
                                 </p>
+
+                                <div class="flex justify-center items-center">
+                                <p class="text-[35px] text-gray-700"><?php
+                                    $role = "student";
+                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                    $result = mysqli_query($connection, $query);
+                                    if ($result) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        if ($row) {
+                                            $count = $row["count"];
+                                            echo $count;
+                                        }
+                                    }
+                                ?></p>
+                                </div>
                             </div>
 
                         </div>
                         <div class="">
+                            <!-- courses -->
                             <div class="h-60 w-40 bg bg-yellow-100 rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-[#E8A462] rounded-md m-auto flex justify-center items-center">
                                     <i class="fa-regular fa-briefcase text-gray-500 text-[48px] text-white"></i>
                                 </div>
                                 <p class="ml-4 mt-2 text-[18px] text-gray-700">
-                                    Total Courses
+                                     Courses
                                 </p>
+
+                                <div class="flex justify-center items-center">
+                                <p class="text-[35px] text-gray-700"><?php
+                                    $role = "student";
+                                    $query = "SELECT COUNT(id) AS count FROM registeration WHERE role = '$role'";
+                                    $result = mysqli_query($connection, $query);
+                                    if ($result) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        if ($row) {
+                                            $count = $row["count"];
+                                            echo $count;
+                                        }
+                                    }
+                                ?></p>
+                                </div>
                             </div>
 
                         </div>
-                    </div>
-
-                    <!-- courses -->
-                    <!-- courses -->
-                    <div class="mt-20">
-                        <table class="mt-4">
-                            <pt class="text-[18px]">My Courses</p>
-                                <thead>
-                                    <tr class="text-left p-60">
-                                        <th class=" text-gray-500">ID</th>
-                                        <th class="pl-10 text-gray-500">Cousrses</th>
-                                        <th class="pl-[80px] text-gray-500">Teacher</th>
-                                        <th class="pl-24 text-gray-500">Day</th>
-                                        <th class="pl-24 text-gray-500">Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="">1</td>
-                                        <td class="pl-10 ">Social.Studies</td>
-                                        <td class="pl-[80px] ">Mr.Benson</td>
-                                        <td class="pl-24">Monday</td>
-                                        <td class="pl-24">1:30pm</td>
-                                    </tr>
-
-
-
-
-                                </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -186,7 +203,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
 
 
-            <div class="m-auto flex flex-col justify-center space-y-[90px] -ml-[0px] ">
+            <div class="m-auto flex flex-col justify-center space-y-[90px]  ">
                 <!-- profile -->
                 <!-- profile -->
                 <div>
@@ -206,47 +223,29 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                     <div class="flex justify-center mt-10">
                         <div class="text-center">
                             <!-- image -->
-                            <?php
-                            $select_query = mysqli_query($connection, "SELECT t.image
-                                    FROM teachers t
-                                    JOIN links l ON t.id = l.teacher_id
-                                    WHERE t.id = " . $_SESSION["userid"]);
-
-                            if ($select_query) {
-                                if (mysqli_num_rows($select_query) > 0) {
-                                    $row = mysqli_fetch_assoc($select_query);
-                                    $image = $row["image"];
-                                    echo "<img class='h-[60px] w-[60px] rounded-full' src='images/$image' alt='Teacher Image'>";
-                                } else {
-                                    echo "<p>Name not found</p>";
-                                }
-                            } else {
-                                echo "Query error: " . mysqli_error($connection);
-                            }
-                            ?>
-                            <!-- the name of the admin -->
-                            <p>
+                            <div class="">
                                 <?php
-                                $select_query = mysqli_query($connection, "SELECT t.name
-                                        FROM teachers t
-                                        JOIN links l ON t.id = l.teacher_id
-                                        WHERE t.id = " . $_SESSION["userid"]);
-
-                                if ($select_query) {
-                                    if (mysqli_num_rows($select_query) > 0) {
-                                        $row = mysqli_fetch_assoc($select_query);
-                                        $name = $row["name"];
-                                        echo "<p>$name</p>";
-                                    } else {
-                                        echo "<p>Name not found</p>";
+                                $email = $_SESSION["email"];
+                                    $image_select_query = mysqli_query($connection,"SELECT images FROM registeration WHERE email='$email'");
+                                    $row = mysqli_fetch_array($image_select_query);
+                                    if(is_array($row)){
+                                        $image  = $row["images"];
+                                        echo "<img class='h-[60px] w-[60px] rounded-full' src='../images/$image' alt='Admin image'>";
                                     }
-                                } else {
-                                    echo "Query error: " . mysqli_error($connection);
-                                }
                                 ?>
-
+                            </div>
+                            
+                            <!-- the name of the admin -->
+                            <p class="text-[14px] text-gray-500">
+                                <?php
+                                    $email = $_SESSION["email"];
+                                    $select_query = mysqli_query($connection,"SELECT name FROM registeration WHERE email = '$email'");
+                                    $row = mysqli_fetch_array($select_query);
+                                    if(is_array($row)){
+                                        echo $row["name"];
+                                    }
+                                ?>
                             </p>
-                            <p class="text-[14px] text-gray-500">Admin</p>
                         </div>
                     </div>
                 </div>
@@ -255,7 +254,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-                        <p class="text-[19px]">Class Progress</p>
+                        <p class="text-[19px]">Result Upload</p>
                         <!-- class exercises -->
                         <a href="">
                             <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
@@ -277,7 +276,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                     <i class="fa-regular fa-user-pen text-white"></i>
                                 </p>
                                 <p class="text-white">
-                                    Quizes
+                                    Mid-semester
                                 </p>
                                 <p class="ml-auto">
                                     <i class="fa-solid fa-greater-than text-white"></i>
@@ -298,6 +297,22 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                 </p>
                             </div>
                         </a>
+
+                        <!-- class assignment -->
+                        <a href="">
+                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
+                                <p>
+                                    <i class="fa-regular fa-house-person-return text-white"></i>
+                                </p>
+                                <p class="text-white">
+                                    Examination
+                                </p>
+                                <p class="ml-auto">
+                                    <i class="fa-solid fa-greater-than text-white"></i>
+                                </p>
+                            </div>
+                        </a>
+
                     </div>
                 </div>
             </div>

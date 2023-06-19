@@ -16,6 +16,11 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <!-- assets -->
     <link rel="stylesheet" href="Assets/fonts/fonts.css">
     <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
+
+    <!-- scripts -->
+    <!-- scripts -->
+    <script src="Assets/tailwind.js"></script>
+    <script src="Assets/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="" style="font-family: poppins;">
@@ -24,7 +29,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
-    <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/africa.avif" alt="">
+            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/africa.avif" alt="">
         </div>
 
         <div class="flex justify-center items-center">
@@ -48,8 +53,8 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- email input field -->
                 <div class="mt-4">
-                    <label class="text-[18px]" for="userid">Email</label><br>
-                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="userid" type="text" placeholder="Enter id number">
+                    <label class="text-[18px]" for="email">Email</label><br>
+                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="email" type="text" placeholder="Enter email">
                 </div>
 
                 <!-- password input field -->
@@ -67,7 +72,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                 <!-- forget password link -->
                 <div class="text-[14px] text-right mt-4 ">
-                    <a href="confirm_email.php">
+                    <a href="password-reset/confirm_email.php">
                         <p class="text-red-600">Forgot password?</p>
                     </a>
                 </div>
@@ -79,10 +84,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
             </form>
         </div>
     </div>
-    <!-- scripts -->
-    <!-- scripts -->
-    <script src="Assets/tailwind.js"></script>
-    <script src="Assets/jquery-3.6.0.min.js"></script>
+    
     <script>
         function showPassword() {
             var passwordField = document.getElementById("password");
@@ -104,30 +106,30 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 <?php
 if (isset($_POST["login"])) {
     //retrieving data from the database
-    $userId = $_POST["userid"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
     $role = $_POST["role"];
 
     // Execute the query to check login credentials
-    $query = "SELECT * FROM registeration WHERE email='$userId' AND password='$password'AND role='$role' ";
+    $query = "SELECT * FROM registeration WHERE email='$email' AND password='$password'AND role='$role' ";
     $statement = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($statement);
 
     if (is_array($row)) {
-        $_SESSION['userid'] = $row['email'];
+        $_SESSION['email'] = $row['email'];
         $_SESSION['password'] = $row['password'];
     }
 
     // Check the role and redirect accordingly
     if (isset($row['email'])) {
         if ($row['role'] === 'admin') {
-           header("location:admin.php");
+            header("location:admin/admin.php");
         } elseif ($row['role'] === 'teacher') {
             header("Location: teacher.php?teacherid=" . $row['userid']);
         } elseif ($row['role'] === 'student') {
             header("Location: student.php");
         } elseif ($row['role'] === 'parent') {
-           header("location.parent.php");
+            header("location.parent.php");
         }
     } else {
         echo "

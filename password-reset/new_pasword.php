@@ -14,17 +14,22 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
     <title>INDEX || LOGIN</title>
     <!-- assets -->
     <!-- assets -->
-    <link rel="stylesheet" href="Assets/fonts/fonts.css">
-    <link rel="stylesheet" href="Assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../Assets/fonts/fonts.css">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css">
+
+    <!-- scripts -->
+    <!-- scripts -->
+    <script src="../Assets/tailwind.js"></script>
+    <script src="../Assets/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="bg-gray-100 " style="font-family: poppins;">
+<body class=" " style="font-family: poppins;">
     <!-- page contents -->
     <!-- page contents -->
     <div class="lg:grid lg:grid-cols-2">
         <!-- login image -->
         <div>
-            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/login-image.avif" alt="">
+            <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="../images/africa.avif" alt="">
         </div>
 
         <div class="flex justify-center items-center">
@@ -68,10 +73,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
             </form>
         </div>
     </div>
-    <!-- scripts -->
-    <!-- scripts -->
-    <script src="Assets/tailwind.js"></script>
-    <script src="Assets/jquery-3.6.0.min.js"></script>
+    
     <script>
         function showPassword() {
             var passwordField = document.getElementById("password");
@@ -116,8 +118,8 @@ if (isset($_POST["login"])) {
     $password2 = $_POST["password2"];
     
     if($password === $password2) {
-        $userid = $_SESSION['userid'];
-        $update = mysqli_query($connection, "UPDATE users SET password='$password' WHERE userid ='$userid'");
+        $email = $_SESSION['email'];
+        $update = mysqli_query($connection, "UPDATE registeration SET password='$password' WHERE email ='$email'");
         if($update){
             echo "
         <script>

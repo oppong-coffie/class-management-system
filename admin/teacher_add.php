@@ -157,7 +157,8 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                                         student
                                     </option>
                                 </select>
-                            </div><br>
+                            </div>
+                            <br>
                             <!-- phone -->
                             <div>
                                 <label class="text-[18px]" for="phone">Phone</label><br>
@@ -166,36 +167,14 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         </div>
 
                         <div>
-                            <!-- date of birth -->
-                            <div>
-                                <label class="text-[18px]" for="dob">Birth Date</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="date" placeholder="Enter date of birth" name="dob" required><br><br>
-                            </div>
-                            
-                            <!-- image -->
-                            <div>
-                                <label class="text-[18px]" for="image">Image</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="file" name="image" required><br><br>
-                            </div>
-                            <!--gender -->
-                            <div>
-                                <label class="text-[18px]" for="gender">Gender</label><br>
-                                <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" name="gender" id="" required>
-                                    <option value=""><-- select gender --></option>
-                                    <option value="male">
-                                        Male
-                                    </option>
-                                    <option value="female">
-                                        Female
-                                    </option>
-                                </select>
-                            </div>
+                        <!-- additional inputs -->
+                      
                         </div>
                     </div>
                     <!-- submit -->
-                    <div class="text-center text-20 mt-10">
+                    <di                    v class="text-center text-20 mt-10">
                         <input class="bg-[#8a70d6] border border-[#8a70d6] h-10 w-80 rounded-md outline-none pl-2 text-white text-[20px]" type="submit" value="Register" name="register">
-                    </div>
+                    </di>
                 </form>
             </div>
         </div>
@@ -228,23 +207,21 @@ if (isset($_POST['logout'])) {
 
 if (isset($_POST["register"])) {
     // Retrieving data from the form and sanitizing input
-    $id = mysqli_real_escape_string($connection, $_POST["id"]);
     $password = mysqli_real_escape_string($connection, $_POST["password"]);
-    $role = mysqli_real_escape_string($connection, $_POST["role"]);
+    $role = mysqli_real_escape_string($connection, $_POST["teacher"]);
     $name = mysqli_real_escape_string($connection, $_POST["name"]);
     $email = mysqli_real_escape_string($connection, $_POST["email"]);
     $phone = mysqli_real_escape_string($connection, $_POST["phone"]);
-    $dob = mysqli_real_escape_string($connection, $_POST["dob"]);
     $gender = mysqli_real_escape_string($connection, $_POST["gender"]);
-    $image = $_FILES["image"]["name"];
-    $img_temp_name = $_FILES['image']['tmp_name'];
-    $img_path = "../images/" . $image;
-    $date = date("Y-m-d");
+    // $image = $_FILES["image"]["name"];
+    // $img_temp_name = $_FILES['image']['tmp_name'];
+    // $img_path = "../images/" . $image;
+    // $date = date("Y-m-d");
 
     // Now let's move the uploaded image into the folder: image
-    if (move_uploaded_file($img_temp_name, $img_path)) {
+    // if (move_uploaded_file($img_temp_name, $img_path)) {
         // Inserting data into the database
-        $insert_query = mysqli_query($connection, "INSERT INTO teachers (`teacher_id`, `name`, `images`, `email`, `birth_date`, `phone`, `gender`, `role`,`password`,`date`) VALUES ('$id', '$name', '$image', '$email', '$dob', '$phone', '$gender', '$role',password('$password'),'$date')");
+        $insert_query = mysqli_query($connection, "INSERT INTO teachers (`name`, `teacher_id`, `subject`, `mobile`, `email`, `passwoed`, `role`, `jhs1`, `jhs2`, `jhs3`) VALUES ('$name', '$teacher_id', '$subject', '$phone', '$email', '$gender', '$role',('$passwoed'),'$role', 'jhs1', 'jhs2', 'jhs3')");
 
 
         if ($insert_query) {
@@ -262,6 +239,6 @@ if (isset($_POST["register"])) {
             alert('Failed to upload image');
         </script>";
     }
-}
+// }
 
 ?>

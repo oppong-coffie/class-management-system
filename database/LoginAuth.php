@@ -35,8 +35,8 @@ class LoginAuth
         if($admin_query->num_rows === 1){
             $admin = $this->db->fetchArray($admin_query);
             if($admin){
-                return $admin;
-            }else{
+                header("location:./admin/admin.php");           
+             }else{
                 return false;
             }
         }elseif($parent_query->num_rows === 1){
@@ -49,14 +49,16 @@ class LoginAuth
         }elseif($teacher_query->num_rows === 1){
             $teacher = $this->db->fetchArray($teacher_query);
             if($teacher){
-                return $teacher;
+                
+                header("location:./teacher_dashboard.php");  
+
             }else{
                 return false;
             }
         }elseif($student_query->num_rows === 1){
             $student = $this->db->fetchArray($student_query);
             if($student){
-                return $student;
+                header("location:./student_dashboard.php");  
             }else{
                 return false;
             }

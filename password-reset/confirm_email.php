@@ -4,12 +4,6 @@ session_start();
 //database connection
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
-<<<<<<< HEAD:confirm_email.php
-// Include the Twilio PHP SDK
-
-
-=======
->>>>>>> 863e3f12113c66fab1e4c99f3f09a7a6b3c6332e:password-reset/confirm_email.php
 ?>
 <!DOCTYPE html>
 <html lang="en">

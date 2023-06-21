@@ -5,11 +5,10 @@ session_start();
 $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
 //deleting a row
-if(isset($_GET["delete"])){
+if (isset($_GET["delete"])) {
     $delete = $_GET["delete"];
     //delete query
-    $delete_query = mysqli_query($connection,"DELETE FROM teachers WHERE id ='$delete'");
-
+    $delete_query = mysqli_query($connection, "DELETE FROM teachers WHERE id ='$delete'");
 }
 ?>
 <!DOCTYPE html>
@@ -130,10 +129,9 @@ if(isset($_GET["delete"])){
                     <table id="myTable" class="table w-[1100px] ml-2" id="container">
                         <thead class="p-2 bg-[#8a70d6] p w-[100px]">
                             <tr class="text-left h-10 text-blue-100">
-                                <th class="ml-2">ID</th>
+                                <th>Student id</th>
                                 <th>IMAGES</th>
                                 <th>NAME</th>
-                                <th>REG_ID</th>
                                 <th>EMAIL</th>
                                 <th>PASSWORD</th>
                                 <th>ROLE</th>
@@ -141,34 +139,33 @@ if(isset($_GET["delete"])){
                                 <th>PHONE</th>
                                 <th>GENDER</th>
                                 <th>ACTION</th>
-                            </tr>                           
+                            </tr>
                         </thead>
                         <?php
-                        $role = "student";
                         // Selecting teachers detail from the database
-                        $teacher_details = mysqli_query($connection, "SELECT * FROM registeration WHERE role = '$role'");
+                        $teacher_details = mysqli_query($connection, "SELECT * FROM students  ");
                         while ($row = mysqli_fetch_array($teacher_details)) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
-                                    <td ><?php echo $row["id"] ?></td>
-                                    <td ><?php echo "<img class='rounded-full h-10 w-10' src='../images/".$row["images"] . "'; ?>" ?></td>
-                                    <td ><?php echo $row["name"] ?></td>
-                                    <td ><?php echo $row["reg_id"] ?></td>
-                                    <td ><?php echo $row["email"] ?></td>
-                                    <td ><?php echo $row["password"] ?></td>
-                                    <td ><?php echo $row["role"] ?></td>
-                                    <td ><?php echo $row["date_of_birth"] ?></td>
-                                    <td ><?php echo $row["phone"] ?></td>
-                                    <td ><?php echo $row["gender"] ?></td>
-                                    <td >
+                                    <td><?php echo $row["student_id"] ?></td>
+                                    <td><?php echo "<img class='rounded-full h-10 w-10' src='../images/" . $row["images"] . "'; ?>"
+                                        ?></td>
+                                    <td><?php echo $row["name"] ?></td>
+                                    <td><?php echo $row["email"] ?></td>
+                                    <td><?php echo $row["password"] ?></td>
+                                    <td><?php echo $row["role"] ?></td>
+                                    <td><?php echo $row["birth_date"] ?></td>
+                                    <td><?php echo $row["phone"] ?></td>
+                                    <td><?php echo $row["gender"] ?></td>
+                                    <td>
                                         <?php
                                         echo '
                                             <div class="flex gap-2">
-                                                <a href="teacher_reg.php?id='.$row['id'].'">
+                                                <a href="teacher_reg.php?id=' . $row['student_id'] . '">
                                                 <div class="bg-[#8a70d6] text-white w-8 text-center rounded-sm"><button><i class="fa fa-edit"></i></button></div>
                                             </a>
-                                                <a href="teachers_reg.php?delete='.$row['id'].'">
+                                                <a href="teachers_reg.php?delete=' . $row['student_id'] . '">
                                                     <div class="bg-red-600 text-white w-8 text-center rounded-sm"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
                                                 </a>
                                             </div>
@@ -198,54 +195,55 @@ if(isset($_GET["delete"])){
 
     <!-- live search -->
     <script>
-       function mySearch(){
-    		 // Declare variables
-    		  var input, filter, table, tr, td, i, txtValue;
-              //getting the search input
-    		  input = document.getElementById("myInput");
-              //converting the input to upper case
-    		  filter = input.value.toUpperCase();
-              //getting the data in the table
-    		  table = document.getElementById("myTable");
-    		  tr = table.getElementsByTagName("tr");
-    		  // Loop through all table rows, and hide those who don't match the search query
-    		 // Loop through all table rows, and hide those who don't match the search query
-    		  for (i = 0; i < tr.length; i++) {
-    		    td = tr[i].getElementsByTagName("td")[0];
-    		    if (td) {
-    		      txtValue = td.textContent || td.innerText;
-    		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    		        tr[i].style.display = "";
-    		      } else {
-    		        tr[i].style.display = "none";
-    		      }
-    		    }
-    		  }
-    	}
-       function mySearch2(){
-    		 // Declare variables
-    		  var input, filter, table, tr, td, i, txtValue;
-              //getting the search input
-    		  input = document.getElementById("myInput2");
-              //converting the input to upper case
-    		  filter = input.value.toUpperCase();
-              //getting the data in the table
-    		  table = document.getElementById("myTable");
-    		  tr = table.getElementsByTagName("tr");
-    		  // Loop through all table rows, and hide those who don't match the search query
-    		 // Loop through all table rows, and hide those who don't match the search query
-    		  for (i = 0; i < tr.length; i++) {
-    		    td = tr[i].getElementsByTagName("td")[2];
-    		    if (td) {
-    		      txtValue = td.textContent || td.innerText;
-    		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    		        tr[i].style.display = "";
-    		      } else {
-    		        tr[i].style.display = "none";
-    		      }
-    		    }
-    		  }
-    	}
+        function mySearch() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            //getting the search input
+            input = document.getElementById("myInput");
+            //converting the input to upper case
+            filter = input.value.toUpperCase();
+            //getting the data in the table
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function mySearch2() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            //getting the search input
+            input = document.getElementById("myInput2");
+            //converting the input to upper case
+            filter = input.value.toUpperCase();
+            //getting the data in the table
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
 </body>
 

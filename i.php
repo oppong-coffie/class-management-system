@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 //including the db file
@@ -5,49 +6,68 @@ include("./database/db_connection.php");
 include("./database/LoginAuth.php");
 
 //creating object from the db
-$db = new DB('localhost', 'root', '', 'class_management_db');
+$bd = new DB('localhost', 'root', '', 'class_management_db');
 $db->connect();
 
-if (isset($_POST["login"])) {
-    //creating an object of the loginauth
-    $loginauth = new LoginAuth($db);
 
+if (isset($_POST["login"])) {
     // Retrieving data from the database
     $email = $_POST["email"];
     $password = $_POST["password"];
     $role = $_POST["role"];
 
-    $user = $loginauth->loginLogic($email, $password, $role);
+    // Admin login credential
+    $query = "SELECT * FROM admin WHERE email='$email' AND password='$password'AND role='$role' ";
+    $admin_statement = mysqli_query($connection, $query);
+    $admin_row = mysqli_fetch_array($admin_statement);
 
-    if ($user) {
-        // Set the appropriate session variable based on user role
-        $_SESSION["user"] = $user;
+    // Parents login details
+    $query = "SELECT * FROM parents WHERE email='$email' AND password='$password'AND role='$role' ";
+    $parents_statement = mysqli_query($connection, $query);
+    $parents_row = mysqli_fetch_array($parents_statement);
 
-        // Redirect user to their respective dashboard
-        switch ($role) {
-            case "admin":
-               echo "admin";
-                break;
-            case "teacher":
-                echo "teacher";
-                break;
-            case "parent":
-                echo "parent";
-                break;
-            case "student":
-                echo "student";
-                break;
-            default:
-                echo "Invalid role";
-                break;
-        }
-        exit(); // Terminate script after redirect
+    // Students login details
+    $query = "SELECT * FROM students WHERE email='$email' AND password='$password'AND role='$role' ";
+    $students_statement = mysqli_query($connection, $query);
+    $students_row = mysqli_fetch_array($students_statement);
+
+    // Teachers login details
+    $query = "SELECT * FROM teachers WHERE email='$email' AND password='$password'AND role='$role' ";
+    $teachers_statement = mysqli_query($connection, $query);
+    $teachers_row = mysqli_fetch_array($teachers_statement);
+
+    if (is_array($admin_row)) {
+        $_SESSION['email'] = $admin_row['email'];
+        $_SESSION['password'] = $admin_row['password'];
+    } elseif (is_array($parents_row)) {
+        $_SESSION['email'] = $parents_row['email'];
+        $_SESSION['password'] = $parents_row['password'];
+    } elseif (is_array($students_row)) {
+        $_SESSION['email'] = $students_row['email'];
+        $_SESSION['password'] = $students_row['password'];
+    } elseif (is_array($teachers_row)) {
+        $_SESSION['email'] = $teachers_row['email'];
+        $_SESSION['password'] = $teachers_row['password'];
+    }
+
+    // Check the role and redirect accordingly
+    if (isset($admin_row['email'])) {
+        header("Location: admin/admin.php");
+        exit();
+    } elseif (isset($parents_row)) {
+        header("Location: parent/parent.php");
+        exit();
+    } elseif (isset($students_row)) {
+        header("Location: students/student.php");
+        exit();
+    } elseif (isset($teachers_row)) {
+        header("Location: teacher/teacher.php");
+        exit();
     } else {
-        echo "Invalid email or password";
+        echo "<script>alert('Incorrect login credentials');</script>";
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

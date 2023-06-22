@@ -292,9 +292,7 @@ if ($bdtexamfetch) {
            <p class="text-left"><span class="text-slate-400">Hello</span> <span class="md:text-2xl font-semibold">Emmanuel</span>, <span>welcome</span> </p>  
         </div>
         <div class="text-right p-2 text-gray-600 text-3xl"><i class="fa fa-bell"></i></div>
-        <div class="text-right md:p-5 md:text-3xl font-bold">
-            Daily Report Concept
-        </div>
+       
     </div>
 
 

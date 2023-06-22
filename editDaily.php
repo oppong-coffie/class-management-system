@@ -1,7 +1,7 @@
 <?php
  if(isset($_GET["id"]))
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 
 //update the daily report table
 if(isset($_POST['updatedaily'])){

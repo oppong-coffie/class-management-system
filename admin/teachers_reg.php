@@ -6,7 +6,7 @@ include("../database/db_connection.php");
 include("../database/LoginAuth.php");
 
 //creating object from the db
-$db = new DB('localhost', 'root', '', 'class_management_db');
+$db = new DB('localhost', 'root', '', 'management_class');
 $db->connect();
 
 //deleting a row
@@ -136,14 +136,9 @@ if(isset($_GET["delete"])){
                         <thead class="p-2 bg-[#8a70d6]  w-[100px]">
                             <tr class="text-left h-10 text-blue-100">
                                 <th class="ml-2">TEACHER_ID</th>
-                                <th>IMAGES</th>
                                 <th>NAME</th>
                                 <th>EMAIL</th>
-                                <th>PASSWORD</th>
-                                <th>ROLE</th>
-                                <th>DOB</th>
                                 <th>PHONE</th>
-                                <th>GENDER</th>
                                 <th>ACTION</th>
                             </tr>                           
                         </thead>
@@ -152,19 +147,14 @@ if(isset($_GET["delete"])){
                         // Selecting teachers detail from the database
                         $teacher_details =  "SELECT * FROM teachers";
                         $query = $db->query($teacher_details);
-                        while ($row = $db->fetchArray($teacher_details)) {
+                        while ($row = $db->fetchArray($query)) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
                                 <td ><?php echo $row["teacher_id"] ?></td>
-                                    <td ><?php echo "<img class='rounded-full h-10 w-10' src='../images/".$row["images"] . "'; ?>" ?></td>
                                     <td ><?php echo $row["name"] ?></td>
                                     <td ><?php echo $row["email"] ?></td>
-                                    <td ><?php echo $row["password"] ?></td>
-                                    <td ><?php echo $row["role"] ?></td>
-                                    <td ><?php echo $row["birth_date"] ?></td>
-                                    <td ><?php echo $row["phone"] ?></td>
-                                    <td ><?php echo $row["gender"] ?></td>
+                                    <td ><?php echo $row["mobile"] ?></td>
                                     <td >
                                         <?php
                                         echo '

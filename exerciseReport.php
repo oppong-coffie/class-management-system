@@ -1,13 +1,38 @@
 <?php
 session_start();
-$teacherid = $_GET['teacherid'];
-$course = $_GET['course'];
-$teacher_id = IntVal($teacherid);
-echo $course;
-echo $teacher_id;
+$teacherid=$_SESSION['teacherid'];
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
+
+//fetch info about teacher from database
+$teachersql="SELECT * FROM teachers WHERE teacher_id='$teacherid'";
+$teacherquery=mysqli_query($connection, $teachersql);
+$teacherRow=mysqli_fetch_array($teacherquery);
+$subject=$teacherRow['subject'];
+$term=1;
+$class='jhs1';
+$type="exercise";
+
+
+
+
+//update the daily report table
+if(isset($_POST['upload'])){
+//variables
+$std_id=$_POST['std_id'];
+$mark=$_POST['mark'];
+
+//sql statement to insert into database
+$sql = "INSERT INTO scores (`std_id`, `teacher_id`, `subject`, `type`, `mark`, `term`, `class`) VALUES ('$std_id', '$teacherid', '$subject', '$type', '$mark', '$term', '$class')";
+//query
+$query=mysqli_query($connection, $sql);
+
+if($query){
+    echo "good";
+}
+else("bad");
+}
 
 ?>
 <!DOCTYPE html>
@@ -89,9 +114,9 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                 <!-- search bar -->
                 <!-- search bar -->
                 <div class="-ml-10">
-                    <form class="grid grid-cols-2 gap-10" action="exerciseReport_add.php?teacherid=<?php echo $teacherid; ?>&course=<?php echo $course; ?>" method="POST">
-                        <input name="id" type="search" onkeyup="mySearch()" id="myInput" placeholder="Enter id..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
-                        <input name="score" type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Enter mark..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
+                    <form class="grid grid-cols-2 gap-10" action="" method="POST">
+                        <input name="std_id" type="search" onkeyup="mySearch()" id="myInput" placeholder="Enter id..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
+                        <input name="mark" type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Enter mark..." class="bg-[#e9e3ff] h-10 w-[200px] rounded-md pl-4 outline-none">
                         <button name="upload" type="submit"><div class="h-10 w-10 bg-[#8a70d6] rounded-md flex justify-center items-center">
                             <i class="fa-solid fa-regular fa-plus text-white"></i>
                         </div></button>
@@ -108,7 +133,6 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         <thead class="p-2 bg-[#8a70d6] pl-2">
                             <tr class="text-center h-10 text-blue-100">
                                 
-                                <th class="pl-20">ID</th>
                                 <th class="pl-20">NAME</th>
                                 <th class="pl-20">INDEX</th>
                                 <th class="pl-20">SCORE</th>
@@ -117,15 +141,15 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                         </thead>
                         <?php
                         // Selecting teachers detail from the database
-                        $roportdetails = mysqli_query($connection, "SELECT * FROM records WHERE course='java' AND teacher_id=$teacher_id");
+                        $roportdetails = mysqli_query($connection, "SELECT scores.*, students.name FROM scores JOIN students ON scores.std_id = students.std_id WHERE scores.subject = '$subject' AND scores.teacher_id = '$teacherid' AND scores.term='$term' AND scores.class='$class' AND scores.type='$type'");
                         while ($row = mysqli_fetch_array($roportdetails)) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
                                    
-                                    <td class="pl-10"><?php echo $row["id"] ?></td>
-                                    <td class="pl-10"><?php echo $row["userid"] ?></td>
-                                    <td class="pl-10"><?php echo $row["userid"] ?></td>
+                                    
+                                    <td class="pl-10"><?php echo $row["std_id"] ?></td>
+                                    <td class="pl-10"><?php echo $row["name"] ?></td>
                                     <td class="pl-10"><?php echo $row["mark"] ?></td>
                                     <td class="pl-10 pr-2">
                                         <?php

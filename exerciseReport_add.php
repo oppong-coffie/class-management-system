@@ -8,7 +8,7 @@ $teacher_id = IntVal($teacherid);
 
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 
 //update the daily report table
 if(isset($_POST['upload'])){

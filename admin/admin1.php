@@ -6,14 +6,8 @@ if(!isset($_SESSION['email'])){
 }
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 
-//get data fro teachers
-$teachersql = "SELECT * FROM allteachers WHERE teacherid = 1";
-$teacherquery = mysqli_query($connection, $teachersql);
-$teacherow = mysqli_fetch_array($teacherquery);
-echo $teacherow['name'];
-$course = $teacherow['course'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -145,7 +145,24 @@ if (isset($_POST["login"])) {
             } else {
                 echo "Incorrect credentials";
             }
-    } else {
+    }
+
+        else if ($role == "parent") {
+            $studentsql = "SELECT * FROM parents WHERE email='$email' AND password='$password'";
+            $studentquery = mysqli_query($connection, $studentsql);
+            $studentstatement = mysqli_fetch_array($studentquery);
+            if ($studentstatement) {
+                $_SESSION['std_id'] =$studentstatement['std_id'];
+                $_SESSION['id'] ='$studentstatement[]';
+                header("Location:./parents/parent_dashboard.php");
+                exit();
+            } else {
+                echo "Incorrect credentials";
+            }
+    }
+        
+    
+    else {
         echo "<script>alert('Incorrect user');</script>";
     }
 }

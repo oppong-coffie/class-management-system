@@ -2,7 +2,7 @@
 session_start();
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 
 //deleting a row
 if (isset($_GET["delete"])) {

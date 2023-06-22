@@ -10,7 +10,7 @@ $teachersql="SELECT * FROM teachers WHERE teacher_id='$teacherid'";
 $teacherquery=mysqli_query($connection, $teachersql);
 $teacherRow=mysqli_fetch_array($teacherquery);
 $subject=$teacherRow['subject'];
-if ($teacherRow['jsh1'] == 'jhs1') {
+if ($teacherRow['jhs1'] == 'jhs1') {
     $jhs1 = 'JHS 1';
 } else {
     $jhs1 = "";

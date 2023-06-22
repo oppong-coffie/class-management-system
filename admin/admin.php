@@ -7,7 +7,7 @@ if(!isset($_SESSION['email'])){
 }
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 
 //get data fro teachers
 $teachersql = "SELECT * FROM allteachers WHERE teacherid = 1";
@@ -32,11 +32,7 @@ $course = $teacherow['course'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD:teacher.php
-    <title>TEACHERS DASHBOARD || results</title>
-=======
     <title>ADMIN DASHBOARD || DASHBOARD</title>
->>>>>>> 863e3f12113c66fab1e4c99f3f09a7a6b3c6332e:admin/admin.php
     <!-- assets -->
     <!-- assets -->
     <link rel="stylesheet" href="../Assets/fonts/fonts.css">
@@ -48,12 +44,7 @@ $course = $teacherow['course'];
     <script src="../Assets/jquery-3.6.0.min.js"></script>
 </head>
 
-<<<<<<< HEAD:teacher.php
-<body class="bg-[#fbfbfb] h-[100vh]" style="font-family: poppins;">
-
-=======
 <body class=" h-[100vh]" style="font-family: poppins;">
->>>>>>> 863e3f12113c66fab1e4c99f3f09a7a6b3c6332e:admin/admin.php
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
@@ -75,11 +66,7 @@ $course = $teacherow['course'];
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="">Courses</a>
                     </li>
                     <li class="list-none mt-4">
-<<<<<<< HEAD:teacher.php
-                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="dailyReport_add.php">Results</a>
-=======
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500" href="teachers_reg.php">Teachers</a>
->>>>>>> 863e3f12113c66fab1e4c99f3f09a7a6b3c6332e:admin/admin.php
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-users text-gray-500"></i><a class="ml-2 text-gray-500" href="students_reg.php">Students</a>
@@ -274,11 +261,7 @@ $course = $teacherow['course'];
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-<<<<<<< HEAD:teacher.php
-                        <p class="text-[19px]">RESUILTS UPLOAD</p>
-=======
                         <p class="text-[19px]">Result Upload</p>
->>>>>>> 863e3f12113c66fab1e4c99f3f09a7a6b3c6332e:admin/admin.php
                         <!-- class exercises -->
                         <a href="exerciseReport.php?teacherid=<?php echo $teacherid; ?>&course=<?php echo $course; ?>">
     <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">

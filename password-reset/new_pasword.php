@@ -2,7 +2,7 @@
 session_start();
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -6,7 +6,7 @@ include("./database/db_connection.php");
 include("./database/LoginAuth.php");
 
 //creating object from the db
-$bd = new DB('localhost', 'root', '', 'class_management_db');
+$bd = new DB('localhost', 'root', '', 'management_class');
 $db->connect();
 
 

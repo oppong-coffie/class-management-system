@@ -2,7 +2,7 @@
 session_start();
 
 //database connection
-$connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
+$connection = mysqli_connect('localhost', 'root', '', 'management_class');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +118,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                             <!-- id -->
                             <div>
                                 <label class="text-[18px]" for="name">Teacher id</label><br>
-                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="text" placeholder="Enter id" name="id" required><br><br>
+                                <input class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" type="text" placeholder="Enter id" name="teacher_id" required><br><br>
                             </div>
                             <!-- name -->
                             <div>
@@ -141,20 +141,18 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
                             </div>
                             <!-- email -->
                             <div>
-                                <label class="text-[18px]" for="gender">Role</label><br>
-                                <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" name="role" id="" required>
-                                    <option value=""><-- select role --></option>
-                                    <option value="admin">
-                                       admin
+                                <label class="text-[18px]" for="gender">Subject</label><br>
+                                <select class="bg-[#e9e3ff] border border-[#e9e3ff] h-10 w-60 rounded-md outline-none pl-2" name="subject" id="" required>
+                                    <option value="">-- select Subject --</option>
+                                   
+                                    <option value="english">
+                                        English
                                     </option>
-                                    <option value="teacher">
-                                        teacher
+                                    <option value="science">
+                                        Science
                                     </option>
-                                    <option value="parent">
-                                        parent
-                                    </option>
-                                    <option value="student">
-                                        student
+                                    <option value="maths">
+                                        Maths
                                     </option>
                                 </select>
                             </div>
@@ -168,13 +166,20 @@ $connection = mysqli_connect('localhost', 'root', '', 'class_management_db');
 
                         <div>
                         <!-- additional inputs -->
+                        <label for="">Class</label><br>
+                        JHS1<input type="checkbox" name="jhs1" value="jhs1">
+
+                        JHS2<input type="checkbox" name="jhs2" value="jhs2">
+
+                        JHS3<input type="checkbox" name="jhs3" value="jhs3">
+
                       
                         </div>
                     </div>
                     <!-- submit -->
-                    <di                    v class="text-center text-20 mt-10">
+                    <div class="text-center text-20 mt-10">
                         <input class="bg-[#8a70d6] border border-[#8a70d6] h-10 w-80 rounded-md outline-none pl-2 text-white text-[20px]" type="submit" value="Register" name="register">
-                    </di>
+                    </div>
                 </form>
             </div>
         </div>
@@ -208,37 +213,38 @@ if (isset($_POST['logout'])) {
 if (isset($_POST["register"])) {
     // Retrieving data from the form and sanitizing input
     $password = mysqli_real_escape_string($connection, $_POST["password"]);
-    $role = mysqli_real_escape_string($connection, $_POST["teacher"]);
+    $role = 'teacher';
     $name = mysqli_real_escape_string($connection, $_POST["name"]);
     $email = mysqli_real_escape_string($connection, $_POST["email"]);
     $phone = mysqli_real_escape_string($connection, $_POST["phone"]);
     $gender = mysqli_real_escape_string($connection, $_POST["gender"]);
-    // $image = $_FILES["image"]["name"];
-    // $img_temp_name = $_FILES['image']['tmp_name'];
-    // $img_path = "../images/" . $image;
-    // $date = date("Y-m-d");
+    $teacher_id = mysqli_real_escape_string($connection, $_POST["teacher_id"]);
+    $subject = mysqli_real_escape_string($connection, $_POST["subject"]);
+    $jhs1 = mysqli_real_escape_string($connection, $_POST["jhs1"]);
+    $jhs2 = mysqli_real_escape_string($connection, $_POST["jhs2"]);
+    $jhs3 = mysqli_real_escape_string($connection, $_POST["jhs3"]);
+    
+    $insert_query = mysqli_query($connection, "INSERT INTO teachers (`name`, `teacher_id`, `subject`, `mobile`, `email`, `password`, `role`, `jhs1`, `jhs2`, `jhs3`) VALUES ('$name', '$teacher_id', '$subject', '$phone', '$email', '$password', '$role', '$jhs1', '$jhs2', '$jhs3')");
 
-    // Now let's move the uploaded image into the folder: image
-    // if (move_uploaded_file($img_temp_name, $img_path)) {
-        // Inserting data into the database
-        $insert_query = mysqli_query($connection, "INSERT INTO teachers (`name`, `teacher_id`, `subject`, `mobile`, `email`, `passwoed`, `role`, `jhs1`, `jhs2`, `jhs3`) VALUES ('$name', '$teacher_id', '$subject', '$phone', '$email', '$gender', '$role',('$passwoed'),'$role', 'jhs1', 'jhs2', 'jhs3')");
+    if ($insert_query) {
+        echo "yes";
 
-
-        if ($insert_query) {
-            echo "<script>
-                alert('Registration Successful');
-                window.location.href = 'teachers_reg.php';
-            </script>";
-        } else {
-            echo "<script>
-                alert('Registration Failed');
-            </script>";
-        }
-    } else {
         echo "<script>
-            alert('Failed to upload image');
+            alert('Registration Successful');
+            window.location.href = 'teachers_reg.php';
+        </script>";
+    } else {
+        echo "nooooooooooooo";
+
+        echo "<script>
+            alert('Registration Failed');
         </script>";
     }
-// }
+} else {
+    echo "<script>
+        alert('Failed to upload image');
+    </script>";
+}
+
 
 ?>

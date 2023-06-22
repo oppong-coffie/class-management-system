@@ -70,6 +70,198 @@ if ($englishexamfetch) {
 }
 // END::MATHS DATA
 
+//START:: SCIENCE DATA
+ //fetch Science exercise from database
+ $scienceexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='science' AND type='exercise' AND term =1 AND class='jhs1'";
+ $scienceexercisequery=mysqli_query($connection, $scienceexercisesql);
+ $scienceexercisefetch=mysqli_fetch_array($scienceexercisequery);
+ if ($scienceexercisefetch) {
+    $scienceexercise = $scienceexercisefetch['mark'];
+} else {
+    $scienceexercise = 0;
+}
+
+ //fetch science home work from database
+ $sciencehomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='science' AND type='homework' AND term =1 AND class='jhs1'";
+ $sciencehomeworkquery=mysqli_query($connection, $sciencehomeworksql);
+ $sciencehomeworkfetch=mysqli_fetch_array($sciencehomeworkquery);
+ if($sciencehomeworkfetch) {
+    $sciencehomework = $sciencehomeworkfetch['mark'];
+} else {
+    $sciencehomework = 0;
+}
+
+// fetch science exam from database
+$scienceexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='science' AND type='exam' AND term =1 AND class='jhs1'";
+$scienceexamquery = mysqli_query($connection, $scienceexamsql);
+$scienceexamfetch = mysqli_fetch_array($scienceexamquery);
+if ($scienceexamfetch) {
+    $scienceexam = $scienceexamfetch['mark'];
+} else {
+    $scienceexam = 0;
+}
+// END::SCIENCE DATA
+
+//START:: FRENCH DATA
+ //fetch Frence exercise from database
+ $frenchexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='frence' AND type='exercise' AND term =1 AND class='jhs1'";
+ $frenchexercisequery=mysqli_query($connection, $frenchexercisesql);
+ $frenchexercisefetch=mysqli_fetch_array($frenchexercisequery);
+ if ($frenchexercisefetch) {
+    $frenchexercise = $frenchexercisefetch['mark'];
+} else {
+    $frenchexercise = 0;
+}
+
+ //fetch French home work from database
+ $frenchhomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='frence' AND type='homework' AND term =1 AND class='jhs1'";
+ $frenchhomeworkquery=mysqli_query($connection, $frenchhomeworksql);
+ $frenchhomeworkfetch=mysqli_fetch_array($frenchhomeworkquery);
+ if($frenchhomeworkfetch) {
+    $frenchhomework = $frenchhomeworkfetch['mark'];
+} else {
+    $frenchhomework = 0;
+}
+
+// fetch French exam from database
+$frenchexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='frence' AND type='exam' AND term =1 AND class='jhs1'";
+$frenchexamquery = mysqli_query($connection, $frenchexamsql);
+$frenchexamfetch = mysqli_fetch_array($frenchexamquery);
+if ($frenchexamfetch) {
+    $frenchexam = $frenceexamfetch['mark'];
+} else {
+    $frenchexam = 0;
+}
+// END::FRENCH DATA
+
+//START:: R M E DATA
+ //fetch R M E exercise from database
+ $rmeexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='R M E' AND type='exercise' AND term =1 AND class='jhs1'";
+ $rmeexercisequery=mysqli_query($connection, $rmeexercisesql);
+ $englishexercisefetch=mysqli_fetch_array($englishexercisequery);
+ if ($englishexercisefetch) {
+    $rmeexercise = $rmeexercisefetch['mark'];
+} else {
+    $rmeexercise = 0;
+}
+
+ //fetch R M E home work from database
+ $rmehomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='R M E' AND type='homework' AND term =1 AND class='jhs1'";
+ $rmehomeworkquery=mysqli_query($connection, $rmehomeworksql);
+ $rmehomeworkfetch=mysqli_fetch_array($rmehomeworkquery);
+ if($rmehomeworkfetch) {
+    $rmehomework = $rmehomeworkfetch['mark'];
+} else {
+    $rmehomework = 0;
+}
+
+// fetch R M E exam from database
+$rmeexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='R M E' AND type='exam' AND term =1 AND class='jhs1'";
+$rmeexamquery = mysqli_query($connection, $rmeexamsql);
+$rmeexamfetch = mysqli_fetch_array($rmeexamquery);
+if ($rmeexamfetch) {
+    $rmeexam = $rmeexamfetch['mark'];
+} else {
+    $rmeexam = 0;
+}
+// END::R M E DATA
+
+//START:: SOCIAL SYUDIES DATA
+ //fetch social esocial from database
+ $socialexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='social' AND type='exercise' AND term =1 AND class='jhs1'";
+ $socialexercisequery=mysqli_query($connection, $socialexercisesql);
+ $socialexercisefetch=mysqli_fetch_array($socialexercisequery);
+ if ($socialexercisefetch) {
+    $socialexercise = $socialexercisefetch['mark'];
+} else {
+    $socialexercise = 0;
+}
+
+ //fetch social home work from database
+ $socialhomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='social' AND type='homework' AND term =1 AND class='jhs1'";
+ $socialhomeworkquery=mysqli_query($connection, $socialhomeworksql);
+ $socialhomeworkfetch=mysqli_fetch_array($socialhomeworkquery);
+ if($socialhomeworkfetch) {
+    $socialhomework = $socialhomeworkfetch['mark'];
+} else {
+    $socialhomework = 0;
+}
+
+// fetch social exam from database
+$socialexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='social' AND type='exam' AND term =1 AND class='jhs1'";
+$socialexamquery = mysqli_query($connection, $socialexamsql);
+$socialexamfetch = mysqli_fetch_array($socialexamquery);
+if ($socialexamfetch) {
+    $socialexam = $socialexamfetch['mark'];
+} else {
+    $socialexam = 0;
+}
+// END::SOCIAL STUDIES DATA
+
+//START:: CREATIVE ART DATA
+ //fetch Creative Art ecreativeart from database
+ $creativeartexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='creativeart' AND type='exercise' AND term =1 AND class='jhs1'";
+ $creativeartexercisequery=mysqli_query($connection, $creativeartexercisesql);
+ $creativeartexercisefetch=mysqli_fetch_array($creativeartexercisequery);
+ if ($creativeartexercisefetch) {
+    $creativeartexercise = $creativeartexercisefetch['mark'];
+} else {
+    $creativeartexercise = 0;
+}
+
+ //fetch Creative Art home work from database
+ $creativearthomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='creativeart' AND type='homework' AND term =1 AND class='jhs1'";
+ $creativearthomeworkquery=mysqli_query($connection, $creativearthomeworksql);
+ $creativearthomeworkfetch=mysqli_fetch_array($creativearthomeworkquery);
+ if($creativearthomeworkfetch) {
+    $creativearthomework = $creativearthomeworkfetch['mark'];
+} else {
+    $creativearthomework = 0;
+}
+
+// fetch Creative ART exam from database
+$creativeartexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='creativeart' AND type='exam' AND term =1 AND class='jhs1'";
+$creativeartexamquery = mysqli_query($connection, $creativeartexamsql);
+$creativeartexamfetch = mysqli_fetch_array($creativeartexamquery);
+if ($creativeartexamfetch) {
+    $creativeartexam = $creativeartexamfetch['mark'];
+} else {
+    $creativeartexam = 0;
+}
+// END::CREATIVE ART DATA
+
+//START:: B D T DATA
+ //fetch bdt exercise from database
+ $bdtexercisesql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='bdt' AND type='exercise' AND term =1 AND class='jhs1'";
+ $bdtexercisequery=mysqli_query($connection, $bdtexercisesql);
+ $bdtexercisefetch=mysqli_fetch_array($bdtexercisequery);
+ if ($bdtexercisefetch) {
+    $bdtexercise = $bdtexercisefetch['mark'];
+} else {
+    $bdtexercise = 0;
+}
+
+ //fetch bdt home work from database
+ $bdthomeworksql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='bdt' AND type='homework' AND term =1 AND class='jhs1'";
+ $bdthomeworkquery=mysqli_query($connection, $bdthomeworksql);
+ $bdthomeworkfetch=mysqli_fetch_array($bdthomeworkquery);
+ if($bdthomeworkfetch) {
+    $bdthomework = $bdthomeworkfetch['mark'];
+} else {
+    $bdthomework = 0;
+}
+
+// fetch bdt exam from database
+$bdtexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='bdt' AND type='exam' AND term =1 AND class='jhs1'";
+$bdtexamquery = mysqli_query($connection, $bdtexamsql);
+$bdtexamfetch = mysqli_fetch_array($bdtexamquery);
+if ($bdtexamfetch) {
+    $bdtexam = $bdtexamfetch['mark'];
+} else {
+    $bdtexam = 0;
+}
+// END::B D T DATA
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -204,7 +396,6 @@ if ($englishexamfetch) {
                             <pt class="text-[18px]">My Courses</p>
                             <thead>
                                 <tr class="text-left p-60">
-                                    <th class=" text-gray-500">ID</th>
                                     <th class="pl-10 text-gray-500">SUBJECT</th>
                                     <th class="pl-[80px] text-gray-500">EXERCISE</th>
                                     <th class="pl-24 text-gray-500">HOMEWORKS</th>
@@ -214,7 +405,6 @@ if ($englishexamfetch) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="">1</td>
                                     <td class="pl-10 ">ENGLISH</td>
                                     <td class="pl-[80px] "><?php echo $englishexercise; ?></td>
                                     <td class="pl-24"><?php echo $englishhomework; ?></td>
@@ -222,18 +412,54 @@ if ($englishexamfetch) {
                                     <td class="pl-24"><?php echo $englishexercise+$englishhomework+$englishexam ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="">1</td>
                                     <td class="pl-10 ">MATHS</td>
                                     <td class="pl-[80px] "><?php echo $mathsexercise; ?></td>
                                     <td class="pl-24"><?php echo $mathshomework; ?></td>
                                     <td class="pl-24"><?php echo $mathsexam; ?></td>
                                     <td class="pl-24"><?php echo $mathsexercise+$mathshomework+$mathsexam ?></td>
                                 </tr>
-                              
-         
-
-
-
+                                <tr>
+                                    <td class="pl-10 ">SCIENCE</td>
+                                    <td class="pl-[80px] "><?php echo $scienceexercise; ?></td>
+                                    <td class="pl-24"><?php echo $sciencehomework; ?></td>
+                                    <td class="pl-24"><?php echo $scienceexam; ?></td>
+                                    <td class="pl-24"><?php echo $scienceexercise+$sciencehomework+$scienceexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">S. STUDIES</td>
+                                    <td class="pl-[80px] "><?php echo $socialexercise; ?></td>
+                                    <td class="pl-24"><?php echo $socialhomework; ?></td>
+                                    <td class="pl-24"><?php echo $socialexam; ?></td>
+                                    <td class="pl-24"><?php echo $socialexercise+$socialhomework+$socialexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">C. ART</td>
+                                    <td class="pl-[80px] "><?php echo $creativeartexercise; ?></td>
+                                    <td class="pl-24"><?php echo $creativearthomework; ?></td>
+                                    <td class="pl-24"><?php echo $creativeartexam; ?></td>
+                                    <td class="pl-24"><?php echo $creativeartexercise+$creativearthomework+$creativeartexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">R M E</td>
+                                    <td class="pl-[80px] "><?php echo $rmeexercise; ?></td>
+                                    <td class="pl-24"><?php echo $rmehomework; ?></td>
+                                    <td class="pl-24"><?php echo $rmeexam; ?></td>
+                                    <td class="pl-24"><?php echo $rmeexercise+$rmehomework+$rmeexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">FRENCH</td>
+                                    <td class="pl-[80px] "><?php echo $frenchexercise; ?></td>
+                                    <td class="pl-24"><?php echo $frenchhomework; ?></td>
+                                    <td class="pl-24"><?php echo $frenchexam; ?></td>
+                                    <td class="pl-24"><?php echo $frenchexercise+$frenchhomework+$frenchexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">B D T</td>
+                                    <td class="pl-[80px] "><?php echo $bdtexercise; ?></td>
+                                    <td class="pl-24"><?php echo $bdthomework; ?></td>
+                                    <td class="pl-24"><?php echo $bdtexam; ?></td>
+                                    <td class="pl-24"><?php echo $bdtexercise+$bdthomework+$bdtexam ?></td>
+                                </tr>
 
                             </tbody>
                         </table>

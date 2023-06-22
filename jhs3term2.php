@@ -68,7 +68,7 @@ if ($englishexamfetch) {
 } else {
     $englishexam = 0;
 }
-// END::MATHS DATA
+// END::ENGLISH DATA
 
 ?>
 <!DOCTYPE html>
@@ -204,7 +204,6 @@ if ($englishexamfetch) {
                             <pt class="text-[18px]">My Courses</p>
                             <thead>
                                 <tr class="text-left p-60">
-                                    <th class=" text-gray-500">ID</th>
                                     <th class="pl-10 text-gray-500">SUBJECT</th>
                                     <th class="pl-[80px] text-gray-500">EXERCISE</th>
                                     <th class="pl-24 text-gray-500">HOMEWORKS</th>
@@ -214,7 +213,6 @@ if ($englishexamfetch) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="">1</td>
                                     <td class="pl-10 ">ENGLISH</td>
                                     <td class="pl-[80px] "><?php echo $englishexercise; ?></td>
                                     <td class="pl-24"><?php echo $englishhomework; ?></td>
@@ -222,17 +220,54 @@ if ($englishexamfetch) {
                                     <td class="pl-24"><?php echo $englishexercise+$englishhomework+$englishexam ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="">1</td>
                                     <td class="pl-10 ">MATHS</td>
                                     <td class="pl-[80px] "><?php echo $mathsexercise; ?></td>
                                     <td class="pl-24"><?php echo $mathshomework; ?></td>
                                     <td class="pl-24"><?php echo $mathsexam; ?></td>
                                     <td class="pl-24"><?php echo $mathsexercise+$mathshomework+$mathsexam ?></td>
                                 </tr>
-                              
-         
-
-
+                                <tr>
+                                    <td class="pl-10 ">SCIENCE</td>
+                                    <td class="pl-[80px] "><?php echo $scienceexercise; ?></td>
+                                    <td class="pl-24"><?php echo $sciencehomework; ?></td>
+                                    <td class="pl-24"><?php echo $scienceexam; ?></td>
+                                    <td class="pl-24"><?php echo $scienceexercise+$sciencehomework+$scienceexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">S. STUDIES</td>
+                                    <td class="pl-[80px] "><?php echo $socialexercise; ?></td>
+                                    <td class="pl-24"><?php echo $socialhomework; ?></td>
+                                    <td class="pl-24"><?php echo $socialexam; ?></td>
+                                    <td class="pl-24"><?php echo $socialexercise+$socialhomework+$socialexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">C. ART</td>
+                                    <td class="pl-[80px] "><?php echo $creativeartexercise; ?></td>
+                                    <td class="pl-24"><?php echo $creativearthomework; ?></td>
+                                    <td class="pl-24"><?php echo $creativeartexam; ?></td>
+                                    <td class="pl-24"><?php echo $creativeartexercise+$creativearthomework+$creativeartexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">R M E</td>
+                                    <td class="pl-[80px] "><?php echo $rmeexercise; ?></td>
+                                    <td class="pl-24"><?php echo $rmehomework; ?></td>
+                                    <td class="pl-24"><?php echo $rmeexam; ?></td>
+                                    <td class="pl-24"><?php echo $rmeexercise+$rmehomework+$rmeexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">FRENCH</td>
+                                    <td class="pl-[80px] "><?php echo $frenchexercise; ?></td>
+                                    <td class="pl-24"><?php echo $frenchhomework; ?></td>
+                                    <td class="pl-24"><?php echo $frenchexam; ?></td>
+                                    <td class="pl-24"><?php echo $frenchexercise+$frenchhomework+$frenchexam ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-10 ">B D T</td>
+                                    <td class="pl-[80px] "><?php echo $bdtexercise; ?></td>
+                                    <td class="pl-24"><?php echo $bdthomework; ?></td>
+                                    <td class="pl-24"><?php echo $bdtexam; ?></td>
+                                    <td class="pl-24"><?php echo $bdtexercise+$bdthomework+$bdtexam ?></td>
+                                </tr>
 
 
                             </tbody>

@@ -19,6 +19,55 @@ $type="exam";
 $mark=$_POST['mark'];
 $class='jhs';
 
+// START::SMS
+$parentsql="SELECT * FROM parents WHERE std_id='$std_id'";
+$parentquery=mysqli_query($connection, $parentsql);
+$parentfetch=mysqli_fetch_array($parentquery);
+$parentphone=$parentfetch['phone'];
+$key='d97868cc69d36af20e76';
+$sender_id='SUPREME';
+if($mark<50){
+    $message="Hi, your child scored $mark% in a recent assignment, please advice him to improve next time";
+
+}
+else {
+    $message="Hi, your child scored $mark% in a recent assignment and realy doing well in $subject";
+
+}
+$url="http://sms.smsnotifygh.com/smsapi?key=$key&to=$parentphone&msg=$message&sender_id=$sender_id";
+
+ 
+    /****************API URL TO CHECK BALANCE****************/
+    
+    
+    
+    $result=file_get_contents($url); //call url and store result;
+    
+    switch($result){                                           
+        case "1000":
+        echo "Message sent";
+        break;
+        case "1002":
+        echo "Message not sent";
+        break;
+        case "1003":
+        echo "You don't have enough balance";
+        break;
+        case "1004":
+        echo "Invalid API Key";
+        break;
+        case "1005":
+        echo "Phone number not valid";
+        break;
+        case "1006":
+        echo "Invalid Sender ID";
+        break;
+        case "1008":
+        echo "Empty message";
+        break;
+    }
+    // END:: SMS
+
 //sql statement to insert into database
 $sql = "INSERT INTO scores (`std_id`, `teacher_id`, `subject`, `type`, `mark`,`class`) VALUES ('$std_id', '$teacherid', '$subject', '$type', '$mark', '$class')";
 //query

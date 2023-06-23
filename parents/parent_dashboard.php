@@ -262,7 +262,7 @@ if ($creativeartexamfetch) {
 }
 
 // fetch bdt exam from database
-$bdtexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='bdt' AND type='exam' AND term =1 AND class='jhs1'";
+$bdtexamsql = "SELECT * FROM scores WHERE std_id='$std_id' AND subject='bdt' AND type='exam' AND term =1 AND class='$std_class'";
 $bdtexamquery = mysqli_query($connection, $bdtexamsql);
 $bdtexamfetch = mysqli_fetch_array($bdtexamquery);
 if ($bdtexamfetch) {
@@ -296,8 +296,8 @@ if ($bdtexamfetch) {
     </div>
 
 
-    <div class="grid md:grid-cols-6 gap-2 p-3">
-        <div class=" p-2 bg-slate-400 rounded gap-2 text-center">
+    <div class="ml-72">
+        
             
         <table class="mt-4">
                             <thead>
@@ -366,20 +366,14 @@ if ($bdtexamfetch) {
                                     <td class="pl-24"><?php echo $bdtexam; ?></td>
                                     <td class="pl-24"><?php echo $bdtexercise+$bdthomework+$bdtexam ?></td>
                                 </tr>
-
-
                             </tbody>
                         </table>
-            
-        </div>
-
-        
     </div>
 
     
     <div class="grid md:grid-cols-2 gap-10 bg-slate-500 m-3">
     <div class="ml-14 md:ml-0 px-5 bg-slate-200 rounded bg-green-500 text-2xl text-white font-bold">
-            Best Course
+            Best in
             <h2 class="text-center mt-16 text-slate-200">Java</h2>
             <p class="text-center text-slate-200">90%</p>
         </div>
@@ -388,7 +382,6 @@ if ($bdtexamfetch) {
            <li class="text-2xl">Agile</li> 
            <li class="text-2xl">Java</li> 
         </div>
-
     </div>
 </body>
 </html>

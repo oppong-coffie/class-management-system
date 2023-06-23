@@ -67,15 +67,15 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-user text-gray-500"></i><a class="ml-2 text-gray-500" href="parents_reg.php">Parents</a>
                     </li>
-                    <li class="list-none mt-4">
+                    <!-- <li class="list-none mt-4">
                         <i class="fa-regular fa-square-poll-vertical text-gray-500"></i><a class="ml-2 text-gray-500" href="">Results</a>
-                    </li>
-                    <li class="list-none mt-4">
+                    </li> -->
+                    <!-- <li class="list-none mt-4">
                         <i class="fa-regular fa-comment text-gray-500"></i><a class="ml-2 text-gray-500" href="">Chat</a>
-                    </li>
-                    <li class="list-none mt-4">
+                    </li> -->
+                    <!-- <li class="list-none mt-4">
                         <i class="fa-regular fa-gear text-gray-500"></i><a class="ml-2 text-gray-500" href="">Settings</a>
-                    </li>
+                    </li> -->
 
                 </div>
             </div>
@@ -179,7 +179,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                 <div>
                     <div class="flex ">
                         <div>
-                            <p class="text-[19px]">Profile</p>
+                            <p class="text-[19px]">TERM 1</p>
                         </div>
                         <div class="ml-auto">
                             <a href="admin_profile_edit.php">
@@ -209,67 +209,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-                        <p class="text-[19px]">Result Upload</p>
-                        <!-- class exercises -->
-                        <a href="exerciseReport.php?teacherid=<?php echo $teacherid; ?>&course=<?php echo $course; ?>">
-    <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-        <p>
-            <i class="fa-regular fa-pen-line text-white"></i>
-        </p>
-        <p class="text-white">
-            Exercises
-        </p>
-        <p class="ml-auto">
-            <i class="fa-solid fa-greater-than text-white"></i>
-        </p>
-    </div>
-</a>
-
-                        <!-- class quize -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-user-pen text-white"></i>
-                                </p>
-                                <p class="text-white">
-                                    Mid-semester
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
-                        <!-- class assignment -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-house-person-return text-white"></i>
-                                </p>
-                                <p class="text-white">
-                                    Assignments
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
-
-                        <!-- class assignment -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-house-person-return text-white"></i>
-                                </p>
-                                <p class="text-white">
-                                    Examination
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
-
-                    </div>
+                       
                 </div>
             </div>
         </div>

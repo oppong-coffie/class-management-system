@@ -8,15 +8,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
 <html lang="en">
 
 <head>
-    <style>
-        .active {
-            background-color: #e9e3ff;
-            height: 30px;
-            border-radius: 5px;
-            padding-left: 4px;
-            padding-top: 2px;
-        }
-    </style>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

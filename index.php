@@ -1,9 +1,39 @@
 <?php
 session_start();
+//including the db file
+include("./database/db_connection.php");
+include("./database/LoginAuth.php");
 
-//database connection
-$connection = mysqli_connect('localhost', 'root', '', 'management_class');
+//creating object from the db
+$db = new DB('localhost', 'root', '', 'class_management_system');
+$db->connect();
+
+//creating an object of the loginauth
+$loginauth = new LoginAuth($db);
+
+if (isset($_POST["login"])) {
+
+    // Retrieving data from the database
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $role = $_POST["role"];
+
+    $user = $loginauth->loginLogic($email, $password,$role);
+
+    if ($user) {
+        // Set the appropriate session variable based on user role
+        $_SESSION["email"] = $email;
+    } else {
+       echo "
+            <script>
+                alert('Invalid email or password or choose the correct role');
+            </script>;
+       ";
+    }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +56,9 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
 <body class="" style="font-family: poppins;">
     <!-- page contents -->
     <!-- page contents -->
-    <div class="lg:grid lg:grid-cols-2">
+    <div class="lg:grid lg:grid-cols-2 ">
         <!-- login image -->
-        <div>
+        <div class="md:flex md:justify-center md:items-center">
             <img class="lg:w-[50vw] lg:h-[100vh] mix-blend-normal" src="images/africa.avif" alt="">
         </div>
 
@@ -36,55 +66,55 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
             <form action="" method="post">
                 <!-- login header -->
                 <div class="text-center">
-                    <p class="text-[40px]">LOGIN</p>
+                    <p class="text-[40px] lg:text-[30px] "> CLASS <br> MANAGEMENT</p>
                 </div>
 
                 <!-- role input field -->
-                <div class="">
-                    <label class="text-[18px]" for="role">Role</label><br>
-                    <select class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff]" name="role">
-                        <option value="">-- select role --</option>
-                        <option value="admin">admin</option>
-                        <option value="teacher">teacher</option>
-                        <option value="student">student</option>
-                        <option value="parent">parent</option>
+                <div class="mt-8">
+                    <label class="text-[18px] lg:text-[18px] md:text-[25px]" for="role">Role</label><br>
+                    <select class="h-10 w-80 lg:h-10 rounded-md lg:w-[400px] outline-none md:w-[600px] md:h-14 w-80 bg-blue-100 border focus:border-blue-600" name="role">
+                        <option md:text-[25px] value="">-- select role --</option>
+                        <option md:text-[25px] value="admin">admin</option>
+                        <option md:text-[25px] value="teacher">teacher</option>
+                        <option md:text-[25px] value="student">student</option>
+                        <option md:text-[25px] value="parent">parent</option>
                     </select>
                 </div>
 
                 <!-- email input field -->
                 <div class="mt-4">
-                    <label class="text-[18px]" for="email">Email</label><br>
-                    <input class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="email" type="text" placeholder="Enter email">
+                    <label class="text-[18px] lg:text-[18px] md:text-[25px]" for="email">Email</label><br>
+                    <input class="w-80 h-10 lg:h-10 rounded-md outline-none lg:w-[400px] border focus:border-blue-600 bg-blue-100 p-2 md:w-[600px] md:h-14  " name="email" type="text" placeholder="Enter email">
                 </div>
 
                 <!-- password input field -->
                 <div class="mt-4 flex">
                     <div>
-                        <label class="text-[18px]" for="password">Password</label><br>
-                        <input id="password" class="h-10 rounded-md outline-none w-80 bg-[#e9e3ff] p-2" name="password" type="password" placeholder="Enter password">
+                        <label class="text-[18px] lg:text-[18px] md:text-[25px]" for="password">Password</label><br>
+                        <input id="password" class="h-10 w-80 lg:h-10 rounded-md outline-none lg:w-[400px] border focus:border-blue-600 bg-blue-100 p-2 md:w-[600px] md:h-14" name="password" type="password" placeholder="Enter password">
                     </div>
                     <div>
                         <p onclick="showPassword()">
-                            <i id="icon" class="fa-regular fa-eye -ml-6 mt-10"></i>
+                            <i id="icon" class="mt-10 fa-regular fa-eye -ml-6 lg:mt-10 md:mt-14"></i>
                         </p>
                     </div>
                 </div>
 
                 <!-- forget password link -->
-                <div class="text-[14px] text-right mt-4 ">
+                <div class="lg:text-[14px] text-right mt-4 ">
                     <a href="password-reset/confirm_email.php">
-                        <p class="text-red-600">Forgot password?</p>
+                        <p class="text-red-600 ]">Forgot password?</p>
                     </a>
                 </div>
 
                 <!-- submit button -->
-                <div class="mt-6">
-                    <input class="h-9 w-80 bg-[#8a70d6] rounded-md text-white text-[18px]" type="submit" value="LOGIN" name="login">
+                <div class="mt-6 pb-6">
+                    <input class="h-10 w-80 lg:h-10 rounded-md outline-none lg:w-[180px] border focus:border-blue-600 bg-blue-600 text-white text-lg  md:w-[600px] md:h-14" type="submit" value="LOGIN" name="login">
                 </div>
             </form>
         </div>
     </div>
-    
+
     <script>
         function showPassword() {
             var passwordField = document.getElementById("password");
@@ -103,68 +133,3 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
 </body>
 
 </html>
-<?php
-if (isset($_POST["login"])) {
-    // Retrieving data from the form
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $role = $_POST["role"];
-
-    // Execute the query to check login credentials
-    if ($role == "teacher") {
-        $teachersql = "SELECT * FROM teachers WHERE email='$email' AND password='$password'";
-        $teacherquery = mysqli_query($connection, $teachersql);
-        $teacherstatement = mysqli_fetch_array($teacherquery);
-        if ($teacherstatement) {
-            $_SESSION['teacherid'] =$teacherstatement['teacher_id'];
-            header("Location: teacher_dashboard.php");
-            exit();
-        } else {
-            echo "Incorrect credentials";
-        }
-    } else if ($role == "student") {
-        $studentsql = "SELECT * FROM students WHERE email='$email' AND password='$password'";
-        $studentquery = mysqli_query($connection, $studentsql);
-        $studentstatement = mysqli_fetch_array($studentquery);
-        if ($studentstatement) {
-            $_SESSION['std_id'] =$studentstatement['std_id'];
-            header("Location: student_dashboard.php");
-            exit();
-        } else {
-            echo "Incorrect credentials";
-        }
-    }
-        else if ($role == "admin") {
-            $studentsql = "SELECT * FROM admin WHERE email='$email' AND password='$password'";
-            $studentquery = mysqli_query($connection, $studentsql);
-            $studentstatement = mysqli_fetch_array($studentquery);
-            if ($studentstatement) {
-                $_SESSION['std_id'] ="admin";
-                header("Location:./admin/admin1.php");
-                exit();
-            } else {
-                echo "Incorrect credentials";
-            }
-    }
-
-        else if ($role == "parent") {
-            $studentsql = "SELECT * FROM parents WHERE email='$email' AND password='$password'";
-            $studentquery = mysqli_query($connection, $studentsql);
-            $studentstatement = mysqli_fetch_array($studentquery);
-            if ($studentstatement) {
-                $_SESSION['std_id'] =$studentstatement['std_id'];
-                $_SESSION['id'] ='$studentstatement[]';
-                header("Location:./parents/parent_dashboard.php");
-                exit();
-            } else {
-                echo "Incorrect credentials";
-            }
-    }
-        
-    
-    else {
-        echo "<script>alert('Incorrect user');</script>";
-    }
-}
-
-?>

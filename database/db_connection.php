@@ -48,7 +48,6 @@
         public function escapeString($value){
             return $this->connection->real_escape_string($value);
         }
-       
     }
 
 ?>

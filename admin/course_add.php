@@ -21,46 +21,33 @@ if(isset($_GET["delete"])){
     if (isset($_POST["register"])) {
         // Retrieving data from the form and sanitizing input
         $name = $_POST["name"];
-        $email = $_POST["email"];
         $faculty = $_POST["faculty"];
         $level = $_POST["level"];
-        $accademicyear = $_POST["accademicyear"];;
-        $password = $_POST["password"];
-        $phone = $_POST["phone"];
-        $studentid = $_POST["studentid"];
         $department = $_POST["department"];
-        $gender = $_POST["gender"];
-        $dob = $db->$_POST["dob"];
-        $role = "student";
-        $class = $_POST["class"];
-        $image = $_FILES["images"]["name"];
-        $img_temp_name = $_FILES['images']['tmp_name'];
-        $img_path = "../images/" . $image;
+        $courseCode = $_POST["coursecode"];
+        $semester = $_POST["semester"];
+        $creditHours = $_POST["creditHours"];
         $date = date("Y-m-d");
     
-        // Now let's move the uploaded image into the folder: image
-        if (move_uploaded_file($img_temp_name, $img_path)) {
+        
             // Inserting data into the database
-            $insert_query =  "INSERT INTO students (`Images`,`Name`,`Email`,`Faculty`,`Level`,`AccademicYear`,`Password`,`Phone`,`StudentId`,`Department`,`Gender`,`Role`,`birthDate`,`Date`,class) VALUES ('$image', '$name', '$email', '$faculty', '$level', '$accademicyear', password('$password'), '$phone','$studentid','$department','$gender','$role','$dob','$date','$class')";
+            $insert_query =  "INSERT INTO courses (`Name`,`faculty`,`level`,`Department`,`Code`,`semester`,`Date`,`creditHours`) VALUES ( '$name',  '$faculty', '$level', '$department','$courseCode','$semester','$date', '$creditHours')";
             $query = $db->query($insert_query);
     
     
             if ($query) {
                 echo "<script>
                     alert('Registration Successful');
-                    window.location.href = 'students_reg.php';
+                    window.location.href = 'courses.php';
                 </script>";
             } else {
                 echo "<script>
                     alert('Registration Failed');
                 </script>";
             }
-        } else {
-            echo "<script>
-                alert('Failed to upload image');
-            </script>";
+       
         }
-    }
+    
 
 ?>
 <!DOCTYPE html>
@@ -100,16 +87,16 @@ if(isset($_GET["delete"])){
     <!-- page content -->
     <div class=" ml-60 pt-6 pr-4">
         <div>
-            <p class="text-[25px]">Add Student</p>
+            <p class="text-[25px]">Register Courses</p>
         </div>
 
         <div>
-            <div class="flex justify-center items-center h-[90vh]">
+            <div class="flex justify-center items-center h-[90vh] shadow-sm w-full">
                 <!-- adding a new department -->
                 <!-- adding a new department -->
                 <div class="pb-10 ">
-                    <form  action="" method="post" enctype="multipart/form-data">
-                        <div class="grid grid-cols-3 gap-10">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="grid grid-cols-2 gap-10">
                             <!-- grid one -->
                             <!-- grid one -->
                             <div>
@@ -120,9 +107,59 @@ if(isset($_GET["delete"])){
 
                                 <!-- email input -->
                                 <!-- email input -->
-                                <label for="name">Email</label><br>
-                                <input type="email" name="email" placeholder="Enter email"
+                                <label for="name">Code</label><br>
+                                <input type="text" name="coursecode" placeholder="Enter email"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
+
+                                <!-- email input -->
+                                <!-- email input -->
+                                <label for="name">Credit Hours</label><br>
+                                <input type="number" name="creditHours" placeholder="Enter email"
+                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
+
+
+                                <!-- level input -->
+                                <!-- level input -->
+                                <label for="level">Level</label><br>
+                                <select
+                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
+                                    name="level" id="">
+                                    <option value="">-- select a level --</option>
+                                    <?php 
+                                 // Selecting teachers detail from the database
+                            $teacher_details =  "SELECT * FROM level";
+                            $query = $db->query($teacher_details);
+                            while ($row = $db->fetchArray($query)) {
+                                echo '
+                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
+                                ';
+                            }
+                            ?>
+                                    ?>
+                                </select><br><br>
+                            </div>
+
+                            <!-- grid one -->
+                            <!-- grid one -->
+                            <div>
+                                <label for="name">Semester</label><br>
+                                <select
+                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
+                                    name="semester" id="">
+                                    <option value="">-- select semester --</option>
+                                    <?php 
+                                 // Selecting teachers detail from the database
+                            $teacher_details =  "SELECT * FROM semesters";
+                            $query = $db->query($teacher_details);
+                            while ($row = $db->fetchArray($query)) {
+                                echo '
+                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
+                                ';
+                            }
+                            ?>
+                                    ?>
+                                </select><br><br>
+
 
                                 <!-- faculty input -->
                                 <!-- faculty input -->
@@ -144,89 +181,13 @@ if(isset($_GET["delete"])){
                                     ?>
                                 </select><br><br>
 
-                                <!-- level input -->
-                                <!-- level input -->
-                                <label for="level">Level</label><br>
-                                <select
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="level" id="">
-                                    <option value="">-- select a level --</option>
-                                    <?php 
-                                 // Selecting teachers detail from the database
-                            $teacher_details =  "SELECT * FROM level";
-                            $query = $db->query($teacher_details);
-                            while ($row = $db->fetchArray($query)) {
-                                echo '
-                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
-                                ';
-                            }
-                            ?>
-                                    ?>
-                                </select><br><br>
-
-                                <label for="faculty">Faculty</label><br>
-                                <select
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="class" id="">
-                                    <option value="">-- select a class --</option>
-                                    <?php 
-                                 // Selecting teachers detail from the database
-                            $teacher_details =  "SELECT * FROM classes";
-                            $query = $db->query($teacher_details);
-                            while ($row = $db->fetchArray($query)) {
-                                echo '
-                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
-                                ';
-                            }
-                            ?>
-                                    ?>
-                                </select><br><br>
-                            </div>
-
-                            <!-- grid one -->
-                            <!-- grid one -->
-                            <div>
-                                <label for="name">Accademic Year</label><br>
-                                <select
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="accademicyear" id="">
-                                    <option value="">-- select accademic year --</option>
-                                    <?php 
-                                 // Selecting teachers detail from the database
-                            $teacher_details =  "SELECT * FROM accademicyear";
-                            $query = $db->query($teacher_details);
-                            while ($row = $db->fetchArray($query)) {
-                                echo '
-                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
-                                ';
-                            }
-                            ?>
-                                    ?>
-                                </select><br><br>
-
-                                <label for="name">Password</label><br>
-                                <input type="text" name="password" id="myInput" placeholder="Add a password"
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-
-                                <label for="name">Phone</label><br>
-                                <input type="text" name="phone" id="myInput" placeholder="Add a Department"
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-
-                                    <label for="name">Student Id</label><br>
-                                <input type="text" name="studentid" id="myInput" placeholder="Add student id"
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-
-                            </div>
-
-                            <!-- grid one -->
-                            <!-- grid one -->
-                            <div>
-                                <label for="name">Department</label><br>
-
+                                <!-- faculty input -->
+                                <!-- faculty input -->
+                                <label for="faculty">Department</label><br>
                                 <select
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
                                     name="department" id="">
-                                    <option value="">-- select department--</option>
+                                    <option value="">-- select a department --</option>
                                     <?php 
                                  // Selecting teachers detail from the database
                             $teacher_details =  "SELECT * FROM department";
@@ -239,35 +200,14 @@ if(isset($_GET["delete"])){
                             ?>
                                     ?>
                                 </select><br><br>
-
-                                <label for="name">Gender</label><br>
-                                <select
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="gender" id="">
-                                    <option class="text-gray-300" value="">-- select gender--</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Male">Female</option>
-                                  
-                                </select><br><br>
-
-                                <label for="name">Birth Date</label><br>
-                                <input type="date" name="dob" id="myInput" placeholder="Add student id"
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-                                    
-                                    <label for="name">Image</label><br>
-                                    <input type="file" name="images" id="myInput" placeholder="Add student id"
-                                        class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-                                
-                                    
-                                  
-                                </select><br><br>
                             </div>
+
                         </div>
                         <!-- submit button -->
                         <div class="flex justify-center mt-6">
-                        <input name="register" value="Register Student"
-                        class="h-10 ml-4 text-white w-80 bg-blue-600 rounded-md flex justify-center items-center"
-                        type="submit">
+                            <input name="register" value="Register "
+                                class="h-10 ml-4 text-white w-80 bg-blue-600 rounded-md flex justify-center items-center"
+                                type="submit">
                         </div>
 
 

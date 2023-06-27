@@ -62,14 +62,11 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                 <!-- nav links -->
                 <div class="mt-8">
                     <li class="list-none active:bg-[#e9e3ff]">
-                        <i class="fa-regular fa-house text-gray-500"></i><a class="ml-2 text-gray-500" href="student.php">Dashboard</a>
+                        <i class="fa-regular fa-house text-gray-500"></i><a class="ml-2 text-gray-500" href="#">Dashboard</a>
                     </li>
-                    <li class="list-none mt-4">
-                        <i class="fa-regular fa-briefcase text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Courses</a>
-                    </li>
-                    <li class="list-none mt-4">
-                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Results</a>
-                    </li>
+                    <!-- <li class="list-none mt-4">
+                        <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="results.php">Results</a>
+                    </li> -->
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-comment text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Chat</a>
                     </li>
@@ -103,9 +100,9 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                 <!-- search bar -->
                 <!-- search bar -->
                 <div class="-ml-10">
-                    <form action="" method="post">
+                    <!-- <form action="" method="post">
                         <input type="search" placeholder="Enter what to search" class="bg-[#e9e3ff] h-10 w-80 rounded-md pl-4 outline-none">
-                    </form>
+                    </form> -->
                 </div>
                 <!-- notification -->
                 <!-- notification -->
@@ -117,7 +114,7 @@ if ($teacherRow['jhs3'] == 'jhs3') {
             
 
                 <div class=" flex-cols-1 mt-6">
-                    <div class="grid grid-cols-3 lg:gap-[260px]">
+                    <!-- <div class="grid grid-cols-3 lg:gap-[260px]">
                         <div class="">
                             <div class="h-60 w-40 bg bg-[#e9e3ff] rounded-md flex-cols-1 justify-center pt-4">
                                 <div class="w-[120px] h-[120px] bg-[#8a70d6] rounded-md m-auto flex justify-center items-center">
@@ -151,35 +148,18 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                             </div>
                            
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- courses -->
                     <!-- courses -->
                     <div class="mt-20">
                         <table class="mt-4">
-                            <pt class="text-[18px]">My Courses</p>
+                            <pt class="text-[18px]">My Subject</p>
                             <thead>
                                 <tr class="text-left p-60">
-                                    <th class=" text-gray-500">ID</th>
-                                    <th class="pl-10 text-gray-500">Cousrses</th>
-                                    <th class="pl-[80px] text-gray-500">Teacher</th>
-                                    <th class="pl-24 text-gray-500">Day</th>
-                                    <th class="pl-24 text-gray-500">Time</th>
+                                    <th class=" text-gray-500"><h2><?php echo $subject ?></h2></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="">1</td>
-                                    <td class="pl-10 ">Social.Studies</td>
-                                    <td class="pl-[80px] ">Mr.Benson</td>
-                                    <td class="pl-24">Monday</td>
-                                    <td class="pl-24">1:30pm</td>
-                                </tr>
-
-
-
-
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -218,14 +198,14 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-                        <p class="text-[19px]">Class Progress</p>
+                        <p class="text-[19px]">Results Upload</p>
                         <!-- class exercises -->
                         <!-- <a href="exerciseReport.php"> -->
-                            <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-10 pl-2 pr-1">
+                            <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
                                 <p class="gap-3 col-span-3 text-white flex">
                                     <i class="fa-regular fa-pen-line text-white"></i>
                                     <span class="">Exercises</span> 
-                                    <i class="fa-solid fa-greater-than text-white"></i>
+                                   >
                                 </p>
                                 <p class="text-white">
                                 <a href="exerciseReport.php"><?php echo $jhs1 ?></a>
@@ -239,11 +219,11 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                             </div>
                         <!-- </a> -->
                         <!-- class Assigments -->
-                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-10 pl-2 pr-1">
+                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
                                 <p class="gap-3 col-span-3 text-white flex">
                                     <i class="fa-regular fa-pen-line text-white"></i>
                                     <span class="">Assignment</span> 
-                                    <i class="fa-solid fa-greater-than text-white"></i>
+                                   >
                                 </p>
                                 <p class="text-white">
                                 <a href="Jhs1_hw_report.php"><?php echo $jhs1 ?></a>
@@ -256,11 +236,11 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                                 </p>
                             </div>
                         <!-- Exams -->
-                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-10 pl-2 pr-1">
+                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
                                 <p class="gap-3 col-span-3 text-white flex">
                                     <i class="fa-regular fa-pen-line text-white"></i>
                                     <span class="">EXAMS</span> 
-                                    <i class="fa-solid fa-greater-than text-white"></i>
+                                    >
                                 </p>
                                 <p class="text-white">
                                 <a href="Jhs1_exam_report.php"><?php echo $jhs1 ?></a>
@@ -268,9 +248,7 @@ if ($teacherRow['jhs3'] == 'jhs3') {
                                 <p class="text-white">
                                 <a href="jhs2_exam_report.php"><?php echo $jhs2 ?></a>
                                 </p>
-                                <p class="text-white">
-                                <a href="jhs3_exam_report.php"><?php echo $jhs3 ?></a>
-                                </p>
+                               
                             </div>
                     </div>
                 </div>

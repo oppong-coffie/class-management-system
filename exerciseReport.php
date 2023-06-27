@@ -13,6 +13,21 @@ $subject=$teacherRow['subject'];
 $term=1;
 $class='jhs1';
 $type="exercise";
+if ($teacherRow['jhs1'] == 'jhs1') {
+    $jhs1 = 'JHS 1';
+} else {
+    $jhs1 = "";
+};
+if ($teacherRow['jhs2'] == 'jhs2') {
+    $jhs2 = 'JHS 2';
+} else {
+    $jhs2 = "";
+};
+if ($teacherRow['jhs3'] == 'jhs3') {
+    $jhs3 = 'JHS 3';
+} else {
+    $jhs3 = "";
+};
 
 
 
@@ -23,54 +38,54 @@ if(isset($_POST['upload'])){
 $std_id=$_POST['std_id'];
 $mark=$_POST['mark'];
 
-// START::SMS
-$parentsql="SELECT * FROM parents WHERE std_id='$std_id'";
-$parentquery=mysqli_query($connection, $parentsql);
-$parentfetch=mysqli_fetch_array($parentquery);
-$parentphone=$parentfetch['phone'];
-$key='d97868cc69d36af20e76';
-$sender_id='SUPREME';
-if($mark<50){
-    $message="Hi, your child scored $mark% in a recent assignment, please advice him to improve next time";
+// // START::SMS
+// $parentsql="SELECT * FROM parents WHERE std_id='$std_id'";
+// $parentquery=mysqli_query($connection, $parentsql);
+// $parentfetch=mysqli_fetch_array($parentquery);
+// $parentphone=$parentfetch['phone'];
+// $key='d97868cc69d36af20e76';
+// $sender_id='SCHOOL';
+// if($mark<50){
+//     $message="Hi, your child scored $mark% in a recent assignment, please advice him to improve next time";
 
-}
-else {
-    $message="Hi, your child scored $mark% in a recent assignment and realy doing well in $subject";
+// }
+// else {
+//     $message="Hi, your child scored $mark% in a recent assignment and realy doing well in $subject";
 
-}
-$url="http://sms.smsnotifygh.com/smsapi?key=$key&to=$parentphone&msg=$message&sender_id=$sender_id";
+// }
+// $url="http://sms.smsnotifygh.com/smsapi?key=$key&to=$parentphone&msg=$message&sender_id=$sender_id";
 
  
-    /****************API URL TO CHECK BALANCE****************/
+//     /****************API URL TO CHECK BALANCE****************/
     
     
     
-    $result=file_get_contents($url); //call url and store result;
+//     $result=file_get_contents($url); //call url and store result;
     
-    switch($result){                                           
-        case "1000":
-        echo "Message sent";
-        break;
-        case "1002":
-        echo "Message not sent";
-        break;
-        case "1003":
-        echo "You don't have enough balance";
-        break;
-        case "1004":
-        echo "Invalid API Key";
-        break;
-        case "1005":
-        echo "Phone number not valid";
-        break;
-        case "1006":
-        echo "Invalid Sender ID";
-        break;
-        case "1008":
-        echo "Empty message";
-        break;
-    }
-    // END:: SMS
+//     switch($result){                                           
+//         case "1000":
+//         echo "Message sent";
+//         break;
+//         case "1002":
+//         echo "Message not sent";
+//         break;
+//         case "1003":
+//         echo "You don't have enough balance";
+//         break;
+//         case "1004":
+//         echo "Invalid API Key";
+//         break;
+//         case "1005":
+//         echo "Phone number not valid";
+//         break;
+//         case "1006":
+//         echo "Invalid Sender ID";
+//         break;
+//         case "1008":
+//         echo "Empty message";
+//         break;
+//     }
+//     // END:: SMS
 
 //sql statement to insert into database
 $sql = "INSERT INTO scores (`std_id`, `teacher_id`, `subject`, `type`, `mark`, `term`, `class`) VALUES ('$std_id', '$teacherid', '$subject', '$type', '$mark', '$term', '$class')";
@@ -122,12 +137,12 @@ else("bad");
                     <li class="list-none active:bg-[#e9e3ff]">
                         <i class="fa-regular fa-house text-gray-500"></i><a class="ml-2 text-gray-500" href="student.php">Dashboard</a>
                     </li>
-                    <li class="list-none mt-4">
+                    <!-- <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Courses</a>
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-square-poll-vertical text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Results</a>
-                    </li>
+                    </li> -->
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-comment text-gray-500"></i></i><a class="ml-2 text-gray-500" href="">Chat</a>
                     </li>
@@ -158,7 +173,7 @@ else("bad");
             
             <div class="grid grid-cols-3">
                 <div>
-                    <p class="text-[25px]">Manage Teachers</p>
+                    <p class="text-[25px]">UPLOAD STUDENT EXERCISE</p>
                 </div>
                 <!-- search bar -->
                 <!-- search bar -->
@@ -252,52 +267,60 @@ else("bad");
                 </div>
 
                 <!-- class progress -->
-                <!-- class progress -->
-                <div>
+                 <!-- class progress -->
+                 <div>
                     <div class=" ">
-                        <p class="text-[19px]">Class Progress</p>
+                        <p class="text-[19px]">Results Upload</p>
                         <!-- class exercises -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
+                        <!-- <a href="exerciseReport.php"> -->
+                            <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
+                                <p class="gap-3 col-span-3 text-white flex">
                                     <i class="fa-regular fa-pen-line text-white"></i>
+                                    <span class="">Exercises</span> 
+                                   >
                                 </p>
                                 <p class="text-white">
-                                    Exercises
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
-                        <!-- class quize -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-user-pen text-white"></i>
+                                <a href="exerciseReport.php"><?php echo $jhs1 ?></a>
                                 </p>
                                 <p class="text-white">
-                                    Quizes
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
-                                </p>
-                            </div>
-                        </a>
-                        <!-- class assignment -->
-                        <a href="">
-                            <div class="h-11 w-60 bg-[#8a70d6] mt-6 rounded-md flex items-center gap-6 pl-2 pr-4">
-                                <p>
-                                    <i class="fa-regular fa-house-person-return text-white"></i>
+                                <a href="jhs2_exercise_report.php"><?php echo $jhs2 ?></a>
                                 </p>
                                 <p class="text-white">
-                                    Assignments
-                                </p>
-                                <p class="ml-auto">
-                                    <i class="fa-solid fa-greater-than text-white"></i>
+                                <a href="Jhs3_exercise_report.php"><?php echo $jhs3 ?></a>
                                 </p>
                             </div>
-                        </a>
+                        <!-- </a> -->
+                        <!-- class Assigments -->
+                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
+                                <p class="gap-3 col-span-3 text-white flex">
+                                    <i class="fa-regular fa-pen-line text-white"></i>
+                                    <span class="">Assignment</span> 
+                                    >
+                                </p>
+                                <p class="text-white">
+                                <a href="Jhs1_hw_report.php"><?php echo $jhs1 ?></a>
+                                </p>
+                                <p class="text-white">
+                                <a href="Jhs2_hw_report.php"><?php echo $jhs2 ?></a>
+                                </p>
+                                <p class="text-white">
+                                <a href="Jhs3_hw_report.php"><?php echo $jhs3 ?></a>
+                                </p>
+                            </div>
+                        <!-- Exams -->
+                        <div class="text-lg h-11 bg-[#8a70d6] mt-6 rounded-md grid grid-cols-6 items-center gap-5 pl-1 pr-1">
+                                <p class="gap-3 col-span-3 text-white flex">
+                                    <i class="fa-regular fa-pen-line text-white"></i>
+                                    <span class="">EXAMS</span> 
+                                    >
+                                </p>
+                                <p class="text-white">
+                                <a href="Jhs1_exam_report.php"><?php echo $jhs1 ?></a>
+                                </p>
+                                <p class="text-white">
+                                <a href="jhs2_exam_report.php"><?php echo $jhs2 ?></a>
+                                </p>
+                            </div>
                     </div>
                 </div>
             </div>

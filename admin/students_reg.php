@@ -130,14 +130,8 @@ if (isset($_GET["delete"])) {
                         <thead class="p-2 bg-[#8a70d6] p w-[100px]">
                             <tr class="text-left h-10 text-blue-100">
                                 <th>Student id</th>
-                                <th>IMAGES</th>
                                 <th>NAME</th>
                                 <th>EMAIL</th>
-                                <th>PASSWORD</th>
-                                <th>ROLE</th>
-                                <th>DOB</th>
-                                <th>PHONE</th>
-                                <th>GENDER</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -148,24 +142,17 @@ if (isset($_GET["delete"])) {
                         ?>
                             <tbody>
                                 <tr class="even:bg-[#e9e3ff] h-10">
-                                    <td><?php echo $row["student_id"] ?></td>
-                                    <td><?php echo "<img class='rounded-full h-10 w-10' src='../images/" . $row["images"] . "'; ?>"
-                                        ?></td>
+                                    <td><?php echo $row["std_id"] ?></td>
                                     <td><?php echo $row["name"] ?></td>
                                     <td><?php echo $row["email"] ?></td>
-                                    <td><?php echo $row["password"] ?></td>
-                                    <td><?php echo $row["role"] ?></td>
-                                    <td><?php echo $row["birth_date"] ?></td>
-                                    <td><?php echo $row["phone"] ?></td>
-                                    <td><?php echo $row["gender"] ?></td>
                                     <td>
                                         <?php
                                         echo '
                                             <div class="flex gap-2">
-                                                <a href="teacher_reg.php?id=' . $row['student_id'] . '">
+                                                <a href="teacher_reg.php?id=' . $row['std_id'] . '">
                                                 <div class="bg-[#8a70d6] text-white w-8 text-center rounded-sm"><button><i class="fa fa-edit"></i></button></div>
                                             </a>
-                                                <a href="teachers_reg.php?delete=' . $row['student_id'] . '">
+                                                <a href="teachers_reg.php?delete=' . $row['std_id'] . '">
                                                     <div class="bg-red-600 text-white w-8 text-center rounded-sm"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
                                                 </a>
                                             </div>

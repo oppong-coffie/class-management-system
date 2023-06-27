@@ -20,7 +20,11 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
             border-radius: 5px;
             padding-left: 4px;
             padding-top: 2px;
-        }
+        };
+        .current-day .day-wrapper {
+    background-color: #FF0000; /* Replace with your desired background color */
+    /* Add any other desired styles */
+}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,6 +39,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
     <!-- scripts -->
     <script src="../Assets/tailwind.js"></script>
     <script src="../Assets/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../css//admin.css">
 </head>
 
 <body class=" h-[100vh]" style="font-family: poppins;">
@@ -129,7 +134,32 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                                 </p>
                                 <div class="flex justify-center items-center">
                                 <p class="text-[35px] text-gray-700">
-                                450</p>
+                                <?php
+// Fetch the total number of students from the database
+$totalstudents_sql = "SELECT COUNT(*) AS total_students FROM students";
+$totalstudents_query = mysqli_query($connection, $totalstudents_sql);
+
+// Check if the query was successful
+if ($totalstudents_query) {
+    // Fetch the result as an associative array
+    $total_students = mysqli_fetch_assoc($totalstudents_query);
+
+    // Access the total number of students
+    $total_students_count = $total_students['total_students'];
+
+    // Output the total number of students
+    echo $total_students_count;
+} else {
+    // Query execution failed
+    echo "Error: " . mysqli_error($connection);
+}
+
+// Free the query result from memory
+mysqli_free_result($totalstudents_query);
+
+
+?>
+</p>
                                 </div>
                             </div>
 
@@ -145,7 +175,33 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                                 </p>
 
                                 <div class="flex justify-center items-center">
-                                <p class="text-[35px] text-gray-700">510</p>
+                                <p class="text-[35px] text-gray-700">
+                                <?php
+// Fetch the total number of teachers from the database
+$totalteachers_sql = "SELECT COUNT(*) AS total_teachers FROM teachers";
+$totalteachers_query = mysqli_query($connection, $totalteachers_sql);
+
+// Check if the query was successful
+if ($totalteachers_query) {
+    // Fetch the result as an associative array
+    $total_teachers = mysqli_fetch_assoc($totalteachers_query);
+
+    // Access the total number of students
+    $total_teachers_count = $total_teachers['total_teachers'];
+
+    // Output the total number of teachers
+    echo $total_teachers_count;
+} else {
+    // Query execution failed
+    echo "Error: " . mysqli_error($connection);
+}
+
+// Free the query result from memory
+mysqli_free_result($totalteachers_query);
+
+?>
+
+                                </p>
                                 </div>
                             </div>
 
@@ -161,7 +217,35 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                                 </p>
 
                                 <div class="flex justify-center items-center">
-                                <p class="text-[35px] text-gray-700">745</p>
+                                <p class="text-[35px] text-gray-700">
+                                <?php
+// Fetch the total number of subjects from the database
+$totalsubjects_sql = "SELECT COUNT(*) AS total_subjects FROM subjects";
+$totalsubjects_query = mysqli_query($connection, $totalsubjects_sql);
+
+// Check if the query was successful
+if ($totalsubjects_query) {
+    // Fetch the result as an associative array
+    $total_subjects = mysqli_fetch_assoc($totalsubjects_query);
+
+    // Access the total number of subjects
+    $total_subjects_count = $total_subjects['total_subjects'];
+
+    // Output the total number of subjects
+    echo $total_subjects_count;
+} else {
+    // Query execution failed
+    echo "Error: " . mysqli_error($connection);
+}
+
+// Free the query result from memory
+mysqli_free_result($totalsubjects_query);
+
+// Close the database connection
+mysqli_close($connection);
+?>
+
+                                </p>
                                 </div>
                             </div>
 
@@ -193,13 +277,14 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                     <div class="flex justify-center mt-10">
                         <div class="text-center">
                             <!-- image -->
+                            <img class="w-56" src="../images/afro-woman-working-laptop-computer-from-home-with-cup-coffee-home-office-concept-woman-working-from-home-student-freelancer-vector-illustration-flat-style-remote-work-freelance_419010-655.avif" alt="">
                             <div class="">
                                OPPONG COFFIE
                             </div>
                             
                             <!-- the name of the admin -->
                             <p class="text-[14px] text-gray-500">
-                               OPPONG COFFIE
+                               Administrator
                             </p>
                         </div>
                     </div>
@@ -209,7 +294,60 @@ $connection = mysqli_connect('localhost', 'root', '', 'management_class');
                 <!-- class progress -->
                 <div>
                     <div class=" ">
-                       
+                    <?php
+// Get the current year and month
+$year = date('Y');
+$month = date('n');
+$day = date('j'); // Current day
+
+// Get the number of days in the current month
+$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+// Get the name of the current month
+$monthName = date('F', mktime(0, 0, 0, $month, 1, $year));
+
+// Get the first day of the current month
+$firstDay = date('N', mktime(0, 0, 0, $month, 1, $year));
+
+// Create an array of day abbreviations
+$dayAbbreviations = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
+
+// Output the calendar HTML
+echo "<h2>$monthName $year</h2>";
+echo "<table>";
+echo "<tr>";
+foreach ($dayAbbreviations as $dayAbbreviation) {
+    echo "<th>$dayAbbreviation</th>";
+}
+echo "</tr>";
+echo "<tr>";
+
+// Output blank cells for the days before the first day of the month
+for ($i = 1; $i < $firstDay; $i++) {
+    echo "<td></td>";
+}
+
+// Output the days of the month
+for ($day = 1; $day <= $daysInMonth; $day++) {
+    // Highlight the current day
+    $class = ($day == $day) ? "current-day" : "";
+
+    echo "<td class='$class'>$day</td>";
+    if (($day + $firstDay - 1) % 7 == 0) {
+        echo "</tr><tr>";
+    }
+}
+
+// Output blank cells for the days after the last day of the month
+for ($i = 0; ($i + $firstDay + $daysInMonth - 1) % 7 != 0; $i++) {
+    echo "<td></td>";
+}
+
+echo "</tr>";
+echo "</table>";
+?>
+
+
                 </div>
             </div>
         </div>

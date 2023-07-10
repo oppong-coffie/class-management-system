@@ -1,38 +1,30 @@
 <?php
 session_start();
-//including the db file
-include("./database/db_connection.php");
-include("./database/LoginAuth.php");
+// Including the db file
+require_once "./database/db_connection.php";
+require_once "./database/LoginAuth.php";
 
-//creating object from the db
+// Creating object from the db
 $db = new DB('localhost', 'root', '', 'class_management_system');
 $db->connect();
 
-//creating an object of the loginauth
+// Creating an object of the LoginAuth
 $loginauth = new LoginAuth($db);
 
 if (isset($_POST["login"])) {
-
-    // Retrieving data from the database
+    // Retrieving data from the form
     $email = $_POST["email"];
     $password = $_POST["password"];
     $role = $_POST["role"];
 
-    $user = $loginauth->loginLogic($email, $password,$role);
+    $user = $loginauth->loginLogic($email, $password, $role);
 
     if ($user) {
         // Set the appropriate session variable based on user role
         $_SESSION["email"] = $email;
-    } else {
-       echo "
-            <script>
-                alert('Invalid email or password or choose the correct role');
-            </script>;
-       ";
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,8 +57,10 @@ if (isset($_POST["login"])) {
         <div class="flex justify-center items-center">
             <form action="" method="post">
                 <!-- login header -->
-                <div class="text-center">
-                    <p class="text-[40px] lg:text-[30px] "> CLASS <br> MANAGEMENT</p>
+                <div class="flex justify-center">
+                    <div>
+                        <p class="text-[40px] lg:text-[30px] "> CLASS <br> MANAGEMENT</p>
+                    </div>
                 </div>
 
                 <!-- role input field -->

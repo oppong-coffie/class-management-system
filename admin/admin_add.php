@@ -22,17 +22,12 @@ if(isset($_GET["delete"])){
         // Retrieving data from the form and sanitizing input
         $name = $_POST["name"];
         $email = $_POST["email"];
-        $faculty = $_POST["faculty"];
-        $level = $_POST["level"];
-        $accademicyear = $_POST["accademicyear"];;
         $password = $_POST["password"];
         $phone = $_POST["phone"];
-        $studentid = $_POST["studentid"];
-        $department = $_POST["department"];
+        $adminId = $_POST["adminId"];
         $gender = $_POST["gender"];
-        $dob = $db->$_POST["dob"];
-        $role = "student";
-        $class = $_POST["class"];
+        $dob = $_POST["dob"];
+        $role = $_POST["role"];
         $image = $_FILES["images"]["name"];
         $img_temp_name = $_FILES['images']['tmp_name'];
         $img_path = "../images/" . $image;
@@ -41,14 +36,14 @@ if(isset($_GET["delete"])){
         // Now let's move the uploaded image into the folder: image
         if (move_uploaded_file($img_temp_name, $img_path)) {
             // Inserting data into the database
-            $insert_query =  "INSERT INTO students (`Images`,`Name`,`Email`,`Faculty`,`Level`,`AccademicYear`,`Password`,`Phone`,`StudentId`,`Department`,`Gender`,`Role`,`birthDate`,`Date`,class) VALUES ('$image', '$name', '$email', '$faculty', '$level', '$accademicyear', password('$password'), '$phone','$studentid','$department','$gender','$role','$dob','$date','$class')";
+            $insert_query =  "INSERT INTO admin (`image`,`role`,`Name`,`email`,`password`,`phoneNo`,`adminId`,`gender`,`birthDate`,`date`) VALUES ('$image','$role', '$name', '$email',   '$password', '$phone','$adminId','$gender','$dob','$date')";
             $query = $db->query($insert_query);
     
     
             if ($query) {
                 echo "<script>
                     alert('Registration Successful');
-                    window.location.href = 'students_reg.php';
+                    window.location.href = 'admin_reg.php';
                 </script>";
             } else {
                 echo "<script>
@@ -100,15 +95,16 @@ if(isset($_GET["delete"])){
     <!-- page content -->
     <div class=" ml-60 pt-6 pr-4">
         <div>
-            <p class="text-[25px]">Add Teacher</p>
-        </div><hr class="border border-blue-500 ">
+            <p class="text-[25px]">Add Admin</p>
+        </div>
+        <hr class="border border-gray-400 border-dashed">
 
         <div>
             <div class="flex justify-center items-center h-[90vh]">
                 <!-- adding a new department -->
                 <!-- adding a new department -->
                 <div class="pb-10 ">
-                    <form  action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-3 gap-10">
                             <!-- grid one -->
                             <!-- grid one -->
@@ -124,47 +120,30 @@ if(isset($_GET["delete"])){
                                 <input type="email" name="email" placeholder="Enter email"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
 
-                                <!-- faculty input -->
-                                <!-- faculty input -->
-                                <label for="faculty">Faculty</label><br>
+                              <label for="name">Role</label><br>
                                 <select
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="faculty" id="">
-                                    <option value="">-- select a faculty --</option>
-                                    <?php 
-                                 // Selecting teachers detail from the database
-                            $teacher_details =  "SELECT * FROM faculty";
-                            $query = $db->query($teacher_details);
-                            while ($row = $db->fetchArray($query)) {
-                                echo '
-                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
-                                ';
-                            }
-                            ?>
-                                    ?>
+                                    name="role" id="">
+                                    <option class="text-gray-300" value="">-- select role --</option>
+                                    <option value="admin">admin</option>
                                 </select><br><br>
-
-                              
-
-                                
                             </div>
 
                             <!-- grid one -->
                             <!-- grid one -->
                             <div>
-                               
-                              
+
 
                                 <label for="name">Password</label><br>
-                                <input type="text" name="password" id="myInput" placeholder="Add a password"
+                                <input type="text" name="password" id="myInput" placeholder="Enter password"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
 
                                 <label for="name">Phone</label><br>
-                                <input type="text" name="phone" id="myInput" placeholder="Add a Department"
+                                <input type="text" name="phone" id="myInput" placeholder="Enter phone"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
 
-                                    <label for="name">Student Id</label><br>
-                                <input type="text" name="studentid" id="myInput" placeholder="Add student id"
+                                <label for="name">Admin Id</label><br>
+                                <input type="text" name="adminId" id="myInput" placeholder="Enter admin id"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
 
                             </div>
@@ -172,24 +151,6 @@ if(isset($_GET["delete"])){
                             <!-- grid one -->
                             <!-- grid one -->
                             <div>
-                                <label for="name">Department</label><br>
-
-                                <select
-                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
-                                    name="department" id="">
-                                    <option value="">-- select department--</option>
-                                    <?php 
-                                 // Selecting teachers detail from the database
-                            $teacher_details =  "SELECT * FROM department";
-                            $query = $db->query($teacher_details);
-                            while ($row = $db->fetchArray($query)) {
-                                echo '
-                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
-                                ';
-                            }
-                            ?>
-                                    ?>
-                                </select><br><br>
 
                                 <label for="name">Gender</label><br>
                                 <select
@@ -198,27 +159,27 @@ if(isset($_GET["delete"])){
                                     <option class="text-gray-300" value="">-- select gender--</option>
                                     <option value="Male">Male</option>
                                     <option value="Male">Female</option>
-                                  
+
                                 </select><br><br>
 
                                 <label for="name">Birth Date</label><br>
                                 <input type="date" name="dob" id="myInput" placeholder="Add student id"
                                     class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-                                    
-                                    <label for="name">Image</label><br>
-                                    <input type="file" name="images" id="myInput" placeholder="Add student id"
-                                        class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
-                                
-                                    
-                                  
+
+                                <label for="name">Image</label><br>
+                                <input type="file" name="images" id="myInput" placeholder="Add student id"
+                                    class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md  pl-4 outline-none"><br><br>
+
+
+
                                 </select><br><br>
                             </div>
                         </div>
                         <!-- submit button -->
                         <div class="flex justify-center mt-6">
-                        <input name="register" value="Register Student"
-                        class="h-10 ml-4 text-white w-80 bg-blue-600 rounded-md flex justify-center items-center"
-                        type="submit">
+                            <input name="register" value="Register Admin"
+                                class="h-10 ml-4 text-white w-80 bg-blue-600 rounded-md flex justify-center items-center"
+                                type="submit">
                         </div>
 
 

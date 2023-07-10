@@ -26,6 +26,7 @@ if(isset($_POST["submit"])){
     $courseCode = $_POST["courseCode"];
     $creditHours = $_POST["creditHours"];
     $marks = $_POST["marks"];
+    $date = date("Y-m-d");
 
     // Make some checking before inserting
 
@@ -37,8 +38,15 @@ if(isset($_POST["submit"])){
 
     // Inserting into the database
     $results = "INSERT INTO results (student_id, level, semester, accademicYear, courseCode, CreditHours, score, scoreGradePoint, scoreLetterGrade, totalScoreGradePoint, date)
-                VALUES ('$id', '$level', '$semester', '$year', '$courseCode', '$creditHours', '$marks', '$gradePoint', '$letterGrade', '$totalScoreGradePoint', NOW())";
+                VALUES ('$id', '$level', '$semester', '$year', '$courseCode', '$creditHours', '$marks', '$gradePoint', '$letterGrade', '$totalScoreGradePoint', '$date' )";
     $query = $db->query($results);
+    if ($query) {
+        echo "
+            <script>;
+                alert('Result added successfully');
+            </script>;
+        ";
+    }
 
     // Execute the query using your database connection
 
@@ -47,22 +55,18 @@ if(isset($_POST["submit"])){
 
 function calculateGrade($marks) {
     if ($marks >= 90) {
-        return [4.0, 'A'];
+        return [4.0, 'A+'];
     } elseif ($marks >= 85) {
-        return [3.7, 'A-'];
+        return [3.7, 'A'];
     } elseif ($marks >= 80) {
         return [3.3, 'B+'];
     } elseif ($marks >= 75) {
         return [3.0, 'B'];
-    } elseif ($marks >= 70) {
-        return [2.7, 'B-'];
     } elseif ($marks >= 65) {
         return [2.3, 'C+'];
     } elseif ($marks >= 60) {
         return [2.0, 'C'];
-    } elseif ($marks >= 55) {
-        return [1.7, 'C-'];
-    } elseif ($marks >= 50) {
+    }  elseif ($marks >= 50) {
         return [1.3, 'D+'];
     } elseif ($marks >= 45) {
         return [1.0, 'D'];
@@ -110,7 +114,7 @@ function calculateGrade($marks) {
     </div>
     <!-- page content -->
     <!-- page content -->
-    <div class=" ml-[210px] pt-6 pr-4">
+    <div class=" ml-[210px] pt-6 pb-10 pr-10">
         <div class="grid grid-cols-3">
             <div class="col-span-2">
                 <p class="text-[25px]">Result Upload</p>
@@ -118,10 +122,10 @@ function calculateGrade($marks) {
 
             <!-- add teacherg -->
             <!-- add teacher -->
-            <a href="student_add.php">
+            <a href="view_result.php">
                 <div class="flex justify-center -ml-20">
-                    <div class="h-10 w-10 bg-blue-600 rounded-md flex justify-center items-center">
-                        <i class="fa-solid fa-regular fa-plus text-white"></i>
+                    <div class="h-10 w-40 text-white bg-blue-600 rounded-md flex justify-center items-center">
+                            View Result
                     </div>
                 </div>
             </a>
@@ -269,7 +273,7 @@ function calculateGrade($marks) {
         </form>
 
         <div class="mt-10 ">
-            <div class=" border border-2 border-dashed border-gray-300 w-[1140px] p-6  rounded-lg">
+            <div class=" border border-2 border-dashed border-gray-300 w-[1100px] p-6  rounded-lg">
 
                 <!-- search bar -->
                 <!-- search bar -->
@@ -282,17 +286,19 @@ function calculateGrade($marks) {
                     </form>
                 </div>
 
-                <table id="myTable" class="shadow-md rounded-sm w-[1100px]" id="container">
+                <table id="myTable" class="shadow-md rounded-sm w-[1040px]" id="container">
                     <thead class=" bg-blue-600 border rounded-md ">
                         <tr class="text-left h-10  text-white">
                             <th>ID</th>
-                            <th>IMAGES</th>
-                            <th>NAME</th>
-                            <th>FACULTY</th>
+                            <th>SUDENT ID</th>
                             <th>LEVEL</th>
-                            <th>YEAR</th>
-                            <th> ID</th>
-                            <th>DEPARTMENT</th>
+                            <th>SEMESTER</th>
+                            <th>COURSE CODE</th>
+                            <th>CREDIT HOURS</th>
+                            <th> SCORE</th>
+                            <th>GP</th>
+                            <th>GRADE</th>
+                            <th>POINTS</th>
                             <th>DATE</th>
                             <th>ACTION</th>
                         </tr>
@@ -301,7 +307,7 @@ function calculateGrade($marks) {
                       
                     
                         //selecting from the database 
-                        $select = " SELECT * FROM students WHERE `level` ='$level' AND `AccademicYear`= '$year' AND `faculty`= '$faculty' AND `department` = '$department' AND `class` = '$class' ";
+                        $select = " SELECT * FROM results";
                         $filter_query = $db->query($select);
                         
                         while ($row = $db->fetchArray($filter_query)) {
@@ -309,16 +315,17 @@ function calculateGrade($marks) {
                     <tbody>
                         <tr class="even:bg-[#e9e3ff] h-10">
                             <td><?php echo $row["Id"] ?></td>
-                            <td><?php echo "<img class='rounded-full h-10 w-10' src='../images/" . $row["Images"] . "'; ?>"
-                                ?></td>
-                            <td><?php echo $row["Name"] ?></td>
-                            <td><?php echo $row["Faculty"] ?></td>
-                            <td><?php echo $row["Level"] ?></td>
-                            <td><?php echo $row["AccademicYear"] ?></td>
-                            <td><?php echo $row["StudentId"] ?></td>
-                            <td><?php echo $row["Department"] ?></td>
-                            <td><?php echo $row["Date"] ?></td>
-                            <td class="text-center">
+                            <td><?php echo $row["student_id"] ?></td>
+                            <td><?php echo $row["level"] ?></td>
+                            <td><?php echo $row["semester"] ?></td>
+                            <td><?php echo $row["courseCode"] ?></td>
+                            <td><?php echo $row["CreditHours"] ?></td>
+                            <td><?php echo $row["score"] ?></td>
+                            <td><?php echo $row["scoreGradePoint"] ?></td>
+                            <td><?php echo $row["scoreLetterGrade"] ?></td>
+                            <td><?php echo $row["totalScoreGradePoint"] ?></td>
+                            <td><?php echo $row["date"] ?></td>
+                            <td>
                                 <?php
                                         echo '
                                             <div class="flex  ">

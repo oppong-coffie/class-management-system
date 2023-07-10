@@ -1,19 +1,17 @@
 <!-- side nav -->
         <!-- side nav -->
         <div class="w-60 h-[80vh] p-4 absolute hidden lg:block">
-            <div class="">
-                <!-- logo -->
-                <!-- logo -->
-                <div class=" ">
-                    <img class="h-20 w-20 rounded-full" src="../images/success-student-consulting_7109-29.avif" alt="">
-                    <p></p>
-                </div>
+            <div class="pt-10">
                 <!-- nav links -->
                 <!-- nav links -->
                 <div class="">
                     <li class="list-none ">
                         <i class="fa-regular fa-house text-gray-500 "></i><a class="ml-2 text-gray-500"
                             href="admin.php">Dashboard</a>
+                    </li>
+                    <li class="list-none mt-4">
+                        <i class="fa-regular fa-house text-gray-500 "></i><a class="ml-2 text-gray-500"
+                            href="admin_reg.php">Admin</a>
                     </li>
                     <li class="list-none mt-4">
                         <i class="fa-regular fa-briefcase text-gray-500"></i><a class="ml-2 text-gray-500"

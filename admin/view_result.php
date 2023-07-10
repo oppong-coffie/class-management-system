@@ -12,6 +12,8 @@ if (isset($_GET["delete"])) {
     //delete query
     $delete_query = mysqli_query($connection, "DELETE FROM teachers WHERE id ='$delete'");
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,25 +50,93 @@ if (isset($_GET["delete"])) {
     </div>
     <!-- page content -->
     <!-- page content -->
-    <div class=" ml-[210px] pt-6 pr-4">
+    <div class=" ml-[210px] pt-6 pb-10 pr-10">
         <div class="grid grid-cols-3">
             <div class="col-span-2">
-                <p class="text-[25px]">Manage Staff</p>
+                <p class="text-[25px]">View Result</p>
             </div>
-            
-            <!-- add teacherg -->
-            <!-- add teacher -->
-            <a href="teacher_add.php">
-                <div class="flex justify-center -ml-20">
-                    <div class="h-10 w-10 bg-blue-600 rounded-md flex justify-center items-center">
-                        <i class="fa-solid fa-regular fa-plus text-white"></i>
-                    </div>
-                </div>
-            </a>
         </div>
 
+        <form action="" method="post">
+
+            <div class="mt-8 shadow-md p-6">
+                <div class="grid grid-cols-2">
+                    <div class="">
+                        <select
+                            class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-md w-[280px] rounded-md pl-4 outline-none"
+                            name="level" id="">
+                            <option value="">-- select a level --</option>
+                            <?php 
+                                 // Selecting teachers detail from the database
+                            $teacher_details =  "SELECT * FROM level";
+                            $query = $db->query($teacher_details);
+                            while ($row = $db->fetchArray($query)) {
+                                echo '
+                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
+                                ';
+                            }
+                        ?>
+                            ?>
+                        </select><br><br>
+
+
+
+                        <select
+                            class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
+                            name="year" id="">
+                            <option value="">-- select a year --</option>
+                            <?php 
+                                 // Selecting teachers detail from the database
+                            $teacher_details =  "SELECT * FROM accademicyear";
+                            $query = $db->query($teacher_details);
+                            while ($row = $db->fetchArray($query)) {
+                                echo '
+                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
+                                ';
+                            }
+                        ?>
+                            ?>
+                        </select><br><br>
+
+                    </div>
+
+                    <div class="">
+                        <select
+                            class="bg-blue-50 border border-blue-200 focus:border-blue-600 h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none"
+                            name="semester" id="">
+                            <option value="">-- select semester --</option>
+                            <?php 
+                                 // Selecting teachers detail from the database
+                            $teacher_details =  "SELECT * FROM semesters";
+                            $query = $db->query($teacher_details);
+                            while ($row = $db->fetchArray($query)) {
+                                echo '
+                                    <option value="'.$row["Name"].'">'.$row["Name"].'</option>
+                                ';
+                            }
+                        ?>
+                            ?>
+                        </select><br><br>
+
+
+                        <input name="indexNumber" type="text" id="myInput" placeholder="Enter index number..."
+                            class="bg-blue-50 border border-blue-200 focus:border-blue-600  h-10 shadow-sm w-[280px] rounded-md pl-4 outline-none">
+                    </div>
+
+
+                </div>
+                <!-- submit button -->
+                <!-- submit button -->
+                <div class="mt-8">
+                    <input type="submit" name="submit" id="myInput2"
+                        class="bg-blue-600 text-white h-10 w-[200px] rounded-md pl-4 outline-none"
+                        value="Check Result">
+                </div>
+            </div>
+        </form>
+
         <div class="mt-10 ">
-            <div class=" border border-2 border-dashed border-gray-300 w-[1140px] p-6  rounded-lg">
+            <div class=" border border-2 border-dashed border-gray-300 w-[1100px] p-6  rounded-lg">
 
                 <!-- search bar -->
                 <!-- search bar -->
@@ -79,43 +149,54 @@ if (isset($_GET["delete"])) {
                     </form>
                 </div>
 
-                <table id="myTable" class="shadow-lg rounded-sm w-[1100px]" id="container">
+                <table id="myTable" class="shadow-md rounded-sm w-[1040px]" id="container">
                     <thead class=" bg-blue-600 border rounded-md ">
                         <tr class="text-left h-10  text-white">
                             <th>ID</th>
-                            <th>IMAGES</th>
-                            <th>NAME</th>
-                            <th>EMAIL</th>
-                            <th>FACULTY</th>
+                            <th>SUDENT ID</th>
                             <th>LEVEL</th>
-                            <th>YEAR</th>
-                            <th>PHONE</th>
-                            <th> ID</th>
-                            <th>DEPARTMENT</th>
+                            <th>SEMESTER</th>
+                            <th>COURSE CODE</th>
+                            <th>CREDIT HOURS</th>
+                            <th> SCORE</th>
+                            <th>GP</th>
+                            <th>GRADE</th>
+                            <th>POINTS</th>
                             <th>DATE</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <?php
-                       
-                        // Selecting teachers detail from the database
-                        $teacher_details =  "SELECT * FROM students";
-                        $query = $db->query($teacher_details);
-                        while ($row = $db->fetchArray($query)) {
+                      
+                        if(isset($_POST["submit"])){
+                            //retrieving data from the database
+                            $level = $_POST["level"];
+                            $year = $_POST["year"];
+                            $semester = $_POST["semester"];
+                            $index = $_POST["indexNumber"];
+
+                            //selcting from the databsse
+                            //selecting from the database 
+                        $select = " SELECT * FROM results where `level` = '$level' AND `accademicYear`='$year' AND student_id = '$index'";
+                        $filter_query = $db->query($select);
+    
+                        
+                        while ($row = $db->fetchArray($filter_query)) {
                         ?>
                     <tbody>
                         <tr class="even:bg-[#e9e3ff] h-10">
                             <td><?php echo $row["Id"] ?></td>
-                            <td><?php echo "<img class='rounded-full h-10 w-10' src='../images/" . $row["Images"] . "'; ?>" ?></td>                            <td><?php echo $row["Name"] ?></td>
-                            <td><?php echo $row["Email"] ?></td>
-                            <td><?php echo $row["Faculty"] ?></td>
-                            <td><?php echo $row["Level"] ?></td>
-                            <td><?php echo $row["AccademicYear"] ?></td>
-                            <td><?php echo $row["Phone"] ?></td>
-                            <td><?php echo $row["StudentId"] ?></td>
-                            <td><?php echo $row["Department"] ?></td>
-                            <td><?php echo $row["Date"] ?></td>
-                            <td class="text-center">
+                            <td><?php echo $row["student_id"] ?></td>
+                            <td><?php echo $row["level"] ?></td>
+                            <td><?php echo $row["semester"] ?></td>
+                            <td><?php echo $row["courseCode"] ?></td>
+                            <td><?php echo $row["CreditHours"] ?></td>
+                            <td><?php echo $row["score"] ?></td>
+                            <td><?php echo $row["scoreGradePoint"] ?></td>
+                            <td><?php echo $row["scoreLetterGrade"] ?></td>
+                            <td><?php echo $row["totalScoreGradePoint"] ?></td>
+                            <td><?php echo $row["date"] ?></td>
+                            <td>
                                 <?php
                                         echo '
                                             <div class="flex  ">
@@ -137,6 +218,7 @@ if (isset($_GET["delete"])) {
                     </tbody>
                     <?php
                         }
+                    }
                         ?>
                 </table>
 

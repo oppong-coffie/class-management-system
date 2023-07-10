@@ -33,7 +33,7 @@ $db->connect();
     <script src="../Assets/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class=" h-[100vh] pt-6  pr-6" style="font-family: poppins;">
+<body class=" h-[100vh]  pr-6" style="font-family: poppins;">
     <div class="">
         <!-- side nav -->
         <!-- side nav -->
@@ -49,7 +49,7 @@ $db->connect();
     </div>
     <!-- page content -->
     <!-- page content -->
-    <div class=" lg:ml-64  lg:grid lg:grid-cols-3 pb-10 lg:pb-0">
+    <div class=" lg:ml-64 pt-6  lg:grid lg:grid-cols-3 pb-10 lg:pb-0">
         <div class="col-span-2">
             <div class="grid grid-cols-3  bg-blue-600 h-[50px] lg:w-[670px] w-[290px] rounded-lg p-2">
                 <div class="col-span-2">
@@ -129,9 +129,6 @@ $db->connect();
             </div>
         </div>
 
-
-
-
         <div
             class="m-auto flex flex-col justify-center  border border-dashed border-[3px] border-gray-300 rounded-lg w-full p-6 mt-8 lg:mt-0 ">
             <!-- profile -->
@@ -153,28 +150,13 @@ $db->connect();
                 <div class="flex justify-center mt-10">
                     <div class="text-center">
                         <!-- image -->
-                        <div class="">
-                            <?php
-                            /*$email = $_SESSION["email"];
-                                    $image_select_query = mysqli_query($connection,"SELECT images FROM registeration WHERE email='$email'");
-                                    $row = mysqli_fetch_array($image_select_query);
-                                    if(is_array($row)){
-                                        $image  = $row["images"];
-                                        echo "<img class='h-[60px] w-[60px] rounded-full' src='../images/$image' alt='Admin image'>";
-                                    }*/
-                            ?>
+                        <div class="h-20 w-20 rounded-full">
+                          <img class="h-20 w-20 rounded-full" src="images/gyan.jpg" alt="">
                         </div>
 
                         <!-- the name of the admin -->
                         <p class="text-[14px] text-gray-500">
-                            <?php
-                            /* $email = $_SESSION["email"];
-                                    $select_query = mysqli_query($connection,"SELECT name FROM registeration WHERE email = '$email'");
-                                    $row = mysqli_fetch_array($select_query);
-                                    if(is_array($row)){
-                                        echo $row["name"];
-                                    }*/
-                            ?>
+                        
                         </p>
                     </div>
                 </div>

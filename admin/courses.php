@@ -78,7 +78,8 @@ if(isset($_POST["addFaculty"])){
         <div class="grid grid-cols-3">
             <div class="col-span-2">
                 <p class="text-[25px]">Manage Courses</p>
-            </div>
+            </div>   
+
             
             <!-- add teacherg -->
             <!-- add teacher -->
@@ -97,9 +98,10 @@ if(isset($_POST["addFaculty"])){
                 <!-- search bar -->
                 <div class="pb-10">
                     <form class="grid grid-cols-2 " action="" method="post">
-                        <input type="search" onkeyup="mySearch()" id="myInput" placeholder="Search by id..."
+                        <input type="search" onkeyup="mySearch()" id="myInput" placeholder="Search name..."
                             class="bg-blue-100 h-10 shadow-sm w-[400px] rounded-md pl-4 outline-none">
-                        <input type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Search by name..."
+
+                        <input type="search" onkeyup="mySearch2()" id="myInput2" placeholder="Search course code..."
                             class="bg-blue-100 h-10 w-[400px] rounded-md pl-4 outline-none">
                     </form>
                 </div>
@@ -142,14 +144,14 @@ if(isset($_POST["addFaculty"])){
                                         echo '
                                             <div class="flex gap-2 ">
                                                 <a onclick="return confirm("Are you sure you want to delete?")" href="teacher_reg.php?id='.$row['Id'].'">
-                                                    <div class=" text-gray-600 w-8 text-center rounded-sm">
+                                                    <div class=" ml-2 text-white text-center rounded-sm flex justify-center items-center h-6 w-6 bg-green-600">
                                                         <button>
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                     </div>
                                                 </a>
                                                 <a href="teachers_reg.php?delete='.$row['Id'].'">
-                                                    <div class=" text-red-600 w-8 text-center rounded-sm"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
+                                                    <div class="ml-2 text-white text-center rounded-sm flex justify-center items-center h-6 w-6 bg-red-600"><button onclick="return confirmDelete()"><i class="fa fa-trash"></i></button><div>
                                                 </a>
                                             </div>
                                             ';
@@ -191,7 +193,7 @@ if(isset($_POST["addFaculty"])){
         // Loop through all table rows, and hide those who don't match the search query
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
+            td = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {

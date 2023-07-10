@@ -27,8 +27,9 @@ if(isset($_GET["delete"])){
         $courseCode = $_POST["coursecode"];
         $semester = $_POST["semester"];
         $creditHours = $_POST["creditHours"];
-        $date = date("Y-m-d");
-    
+        $date = date("Y-m-d"); 
+
+        
         
             // Inserting data into the database
             $insert_query =  "INSERT INTO courses (`Name`,`faculty`,`level`,`Department`,`Code`,`semester`,`Date`,`creditHours`) VALUES ( '$name',  '$faculty', '$level', '$department','$courseCode','$semester','$date', '$creditHours')";
@@ -88,7 +89,8 @@ if(isset($_GET["delete"])){
     <div class=" ml-60 pt-6 pr-4">
         <div>
             <p class="text-[25px]">Register Courses</p>
-        </div>
+        </div><hr class="border border-gray-400 border-dashed">
+
 
         <div>
             <div class="flex justify-center items-center h-[90vh] shadow-sm w-full">
